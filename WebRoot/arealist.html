@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>物管系统</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/uniform.css" />
+<link rel="stylesheet" href="css/select2.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'> -->
+  <script src="normal/js/jquery-1.10.2.min.js" /></script>
+  <script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+  <script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" src="normal/js/menu.js"></script>
+</head>
+<body>
+<div class="header" id="banner">
+    
+</div>
+
+<div id="sidebar">
+
+</div>
+<div id="content" class="mt90">
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>小区列表</h5>
+          </div>
+          <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>小区名字</th>
+                  <th>小区地址</th>
+                  <th>备注</th>
+                </tr>
+              </thead>
+              <tbody id="area_data">
+                <!--  <tr class="even gradeC">
+                  <td>锦丽华庭</td>
+                  <td>白家长城路</td>
+                  <td class="center">思思的家</td>
+                </tr> -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
+       </div>
+      </div>
+      <div class="span6">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+              <h5>添加小区</h5>
+            </div>
+            <div class="widget-content nopadding">
+              <form action="#" method="get" class="form-horizontal" id="areaForm">
+                <div class="control-group">
+                  <label class="control-label">小区名字</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="小区名字" id="name" rule="name:'小区名字', notnull:true">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">小区地址</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="小区地址" id="cityName" rule="name:'小区地址', notnull:true">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">备注</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="备注" id="description">
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-success" id="addArea">添加小区</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    </div>
+
+  </div>
+</div>
+<!--Footer-part-->
+<div class="row-fluid">
+  <div id="footer" class="span12">
+  服务热线：028-25855545<br/>
+  Copyright © 2014 XXXX 版权所有
+  </div>
+</div>
+<!--end-Footer-part-->
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/jquery.dataTables.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/matrix.tables.js"></script>
+
+<script>
+var pageNum = 1;
+var pageIndex = 1;
+function getAreaByPage(pageNum){
+	if(pageNum < 1){
+		window.wxc.xcConfirm('已经是第一页了!', window.wxc.xcConfirm.typeEnum.info);
+	}else if(pageNum > pageIndex){
+		window.wxc.xcConfirm('已经是最后一页了!', window.wxc.xcConfirm.typeEnum.info);
+	}else{
+		var html='';
+		App.util.executeCmd("/user/queryResidentialPage.action", {
+			pageNum: pageNum,
+			pageSize:'10'
+		},"get").success(function(result) {
+			$(result.residentialRespList).each(function(){
+				html +=		'<tr class="even gradeC">'
+									+'<td>'+this.name+'</td>'
+									+'<td>'+this.cityName+'</td>'
+									+'<td class="center">'+this.description+'</td>'
+							+'</tr>'
+								
+			});
+			$("#area_data").html(html);
+			pageIndex = Math.ceil(result.totalNum/10); 
+			if(result.totalNum == 0){
+				pageIndex = 1;
+			}
+			App.pageBar(result.pageNum,pageIndex,'getAreaByPage');
+		});
+	}
+}
+$(function() {
+	//加载横幅菜单
+	banner();
+	//加载权限菜单
+	rightMenu(3);
+	
+	//添加小区
+	$("#addArea").unbind().bind("click", function() {
+		var name = $("#name").val();
+		var cityName = $("#cityName").val();
+		var description = $("#description").val();
+		if(App.util.validate($("#areaForm"))) {
+			App.util.executeCmd("/user/addResidential.action", {
+				name: name,
+				description: description,
+				cityName:cityName,
+				cityCode:'1'
+				},"post").success(function(result) {
+					window.wxc.xcConfirm(result.codeDescription, window.wxc.xcConfirm.typeEnum.success,{onOk:function(){
+						$("#name").val("");
+						$("#description").val("");
+						$("#cityName").val("");
+						getAreaByPage(1);
+						}});
+					});
+			}
+		});
+	
+	//获取小区列表
+	 getAreaByPage(pageNum);
+	
+});
+</script>
+</body>
+</html>

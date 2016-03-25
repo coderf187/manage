@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>添加地址</title>
+    <link href="../css/commom.css" type="text/css" rel="stylesheet" />
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    
+</head>
+<body>
+    <form>
+        <div class="bgblock mtonerem tright">
+            <div class="bgitem  mlper6 wb">
+                <div class="widper10 tcenter">
+                    <img class="icon" src="../images/mychild.png" />
+                </div>
+                <div class="widper90">
+                    <input type="text" class="bgiconitem  mlper6" name="linkman" maxlength="10" placeholder="收货人姓名" />
+                </div>
+            </div>
+            <div class="bgitem mlper6 wb">
+                <!--<label>联系电话：</label>-->
+                <div class="widper10 tcenter">
+                    <img class="icon" src="../images/phone.png" />
+                </div>
+                <div class="widper90">
+                    <input type="tel" class="bgiconitem mlper6"  name="phone_number" maxlength="11" placeholder="联系电话" />
+                </div>
+            </div>
+            <div>
+                <!--<label>所在地区：</label>-->
+                <div class="bgitem oneline inline tleft">
+                    <select  name="province_id">
+                        <option value="">--省--</option>
+                    </select>
+                    <select  name="city_id">
+                        <option value="">--市--</option>
+                    </select>
+                    <select name="area_id">
+                        <option value="">--区--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="bgitem mlper6 wb">
+                <!--<label>详细地址：</label>-->
+                <div class="widper10 tcenter">
+                    <img class="icon" src="../images/location.png" />
+                </div>
+                <div class="widper90">
+                    <input type="text" id="txt_full_address" name="full_address" maxlength="100" class="bgiconitem mlper6" placeholder="详细地址" />
+                </div>
+            </div>
+            <div class="bgitem mlper6 wb last">
+                <!--<label>邮政编码：</label>-->
+                <div class=" widper10 tcenter">
+                    <img class="icon" src="../images/post.png" />
+                </div>
+                <div class="widper90">
+                    <input type="number" id="txt_zip_code" name="zip_code" maxlength="6" class="bgiconitem mlper6 number" placeholder="邮政编码" />
+                </div>
+            </div>
+        </div>
+        <div class="tcenter">
+            <button id="btnSave" class="btn btnwhite btnbig mtb10" type="button">保存</button>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>选择收货地址</title>
+    <link href="../css/commom.css" type="text/css" rel="stylesheet" />
+    <script src="../js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+    <a href="addaddress.html" class="btn btnwhite btnbig" >添加收货地址</a>
+      <div id="addresslist"> 
+       <div  class="clearfix loadmore ul widper100" style="min-height: 485px; height: 485px;">
+        <div class="bgblock mtonerem pat" >
+         <div class="adrselsect"></div>
+         <div addressid="1" >
+          <div class="wb">
+           <div class="g-line palr">
+            谢翠萍
+           </div>
+           <div class="g-line palr">
+            18202877344
+           </div>
+          </div>
+          <div class="c-line palr g-font">
+           四川省成都市武侯区小天东巷90号
+          </div>
+          <div class="c-line palr g-font pab">
+           610000
+          </div>
+          <div class="btdotted wb" addressid="1">
+           <div class="partworem">
+            <div class="defaultadr ">
+             默认地址
+            </div>
+           </div> 
+           <div class="tright widper55">
+            <button type="button" class="tinybtn btngray  " onclick="event.stopPropagation();editAddress(1)">编辑</button>
+            <button type="button" class="tinybtn btngray  " onclick="event.stopPropagation();deleteAddress(1)">删除</button>
+           </div>
+          </div>
+         </div>
+        </div>
+         <div class="bgblock mtonerem pat" >
+         <div>
+          <div class="wb">
+           <div class="g-line palr">
+            谢翠萍
+           </div>
+           <div class="g-line palr">
+            18202877344
+           </div>
+          </div>
+          <div class="c-line palr g-font">
+           四川省成都市武侯区小天东巷100号
+          </div>
+          <div class="c-line palr g-font pab">
+           610000
+          </div>
+          <div class="btdotted wb" >
+           <div class="partworem">
+            <div class="setdefaultadr g-font ">
+             默认地址
+            </div>
+           </div> 
+           <div class="tright widper55">
+            <button type="button" class="tinybtn btngray" >编辑</button>
+            <button type="button" class="tinybtn btngray" >删除</button>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div> 
+       <div class="loading" style="display: none;">
+        加载中...
+       </div> 
+      </div>
+</body>
+</html>

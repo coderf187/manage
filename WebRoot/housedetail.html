@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+	<link href="normal/css/zoom.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+	<script src="normal/js/jquery-1.10.2.min.js" /></script>
+	<script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+	<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="normal/js/menu.js"></script>
+</head>
+<body>
+	<div class="header" id="banner">
+
+	</div>
+
+	<div class="secontent mt100">
+		<div class="centerblock">
+		<div class="imagelist">
+			<div class="smallblock">
+				<img src="normal/images/inform.png">
+				<span class="ml10">房源图片</span>
+			</div>
+            <ul class="gallery" id="imagesData">
+            </ul>
+        </div>
+		</div>
+		
+		<div class="centerblock mt60">
+			<div class="smallblock">
+				<img src="normal/images/inform.png">
+				<span class="ml10">详细信息</span>
+			</div>
+			<span class="inline">单价</span><span class="ml30 yellow" id="Price"></span><br/>	
+			<span class="inline">住房面积</span><span class="ml30 " id="field1"></span><br/>			
+			<span class="inline">厅室</span><span class="ml30 " id="hall"></span><br/>	
+			<span class="inline">小区名字</span><span class="ml30 " id="residName"></span><br/>	
+			<span class="inline">楼层</span><span class="ml30 " id="cellNum"></span><br/>	
+			<span class="inline">朝向</span><span class="ml30 " id="direction"></span><br/>	
+			<span class="inline">产权</span><span class="ml30 " id="property"></span><br/>	
+			<span class="inline">修建年代</span><span class="ml30 " id="buildYear"></span><br/>	
+			<span class="inline">装修</span><span class="ml30 " id="renovation"></span><br/>
+			<span class="inline">地址</span><span class="ml30 " id="address"></span><br/>
+			<span class="inline">联系人</span><span class="ml30 " id="contactPerson"></span><br/>
+			<span class="inline">联系电话</span><span class="ml30 yellow" id="contactPhone"></span><br/>
+		</div>
+	</div>
+	<div class="footer">
+		<div>服务热线：028-25855545</div>
+		<div>Copyright © 2014 XXXX 版权所有</div>
+	</div> 
+	<script src="normal/js/zoom.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		//加载横幅菜单
+		banner(4);
+		
+		  var waresId=App.util.getUrlParam('waresId');
+		  if(App.util.isNullorEmpty(waresId)){
+			  window.wxc.xcConfirm('waresId或者houseInfoId不能为空', window.wxc.xcConfirm.typeEnum.warning);
+		  }else{
+			  var html='';
+			  var wares='';
+			  var houseInfo='';
+			  App.util.executeCmdSys("/wares/queryWaresById.action", {
+				waresId: waresId
+				},"get").success(function(result) {
+					if(result.code=='succ001'){
+						wares=result;
+					}
+				});
+			  App.util.executeCmdSys("/user/queryHouseInfoByWaresId.action",{
+				  waresId:waresId
+				},"get").success(function(result){
+					houseInfo=result
+				})
+			  $('#Price').text(wares.Price+wares.Unit);
+			  $('#field1').text(houseInfo.field1+"㎡");
+			  $('#hall').text(houseInfo.hall);
+			  $('#residName').text(houseInfo.residName);
+			  $('#cellNum').text(houseInfo.cellNum+"楼");
+			  $('#direction').text(houseInfo.direction);
+			  $('#property').text(houseInfo.property+"年");
+			  $('#buildYear').text(houseInfo.buildYear+"年代");
+			  $('#renovation').text(houseInfo.renovation);
+			  $('#address').text(houseInfo.address);
+			  $('#contactPerson').text(houseInfo.contactPerson);
+			  $('#contactPhone').text(houseInfo.contactPhone);
+			  /* var images=App.util.isNullorEmpty(wares.Images)?'normal/images/nothing.jpg':wares.Images.split(','); */
+			  var images='';
+          	if(App.util.isNullorEmpty(wares.Images)){
+          		images= '<li>'
+          					+'<a href="normal/images/default.png">'
+          						+'<img src="normal/images/default.png" />'
+       						+'</a>'
+   						+'</li>';
+          	}else{
+          		var imageArray=wares.Images.split(',');
+          		for(var i=0;i<imageArray.length;i++){
+          			images+= '<li>'
+		      					+'<a href="'+imageArray[i]+'">'
+		      						+'<img src="'+imageArray[i]+'" />'
+		   						+'</a>'
+							+'</li>';
+          		}
+          	}
+			   $('#imagesData').html(images);
+		  }
+	})
+	</script> 
+</body>
+</html>

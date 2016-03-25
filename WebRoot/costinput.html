@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>物管系统</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/uniform.css" />
+<link rel="stylesheet" href="css/select2.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<script src="normal/js/jquery-1.10.2.min.js" /></script>
+<script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="normal/js/menu.js"></script>
+</head>
+<body>
+<div class="header" id="banner">
+
+</div>
+<div id="sidebar">
+
+</div>
+<div id="content" class="mt90">
+  <div class="container-fluid">
+    <div class="row-fluid" id="selectForm">
+       <div class="span4 mt40" style="margin-left:30px;">
+          <select id="date" onchange="changeDate()" class="validate" rule="name:'缴费月份', notnull:true">
+          </select>
+        </div>
+        <div class="span4 mt40" style="margin-left:10px;">
+          <select id="owner_data" onchange="changeOwner()" class="validate" rule="name:'缴费用户', notnull:true">
+          </select>
+        </div>
+    </div>
+    <div class="span10">
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>物管费</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="#" method="get" class="form-horizontal" id="form5">
+            <div class="control-group">
+              <label class="control-label">门牌号</label>
+              <div class="controls">
+                <div class="span4" style="margin-left:0px;">
+                  <select id="userNum5" class="validate" rule="name:'门牌号', notnull:true">
+                  
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">费用(元)</label>
+              <div class="controls">
+                <input type="text" class="span4 validate" placeholder="在此输入缴费金额" id="Price5" rule="name:'费用', amount:true, notnull:true">
+              </div>
+            </div> 
+            <div class="form-actions">
+              <button type="button" class="btn btn-success" onclick="addCostinput(5)">录入</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>水费</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="#" method="get" class="form-horizontal" id="form1">
+            <div class="control-group">
+              <label class="control-label">户头</label>
+              <div class="controls">
+                <input type="text" class="span4 validate" placeholder="在此输入内容" id="userNum1" rule="name:'户头', notnull:true">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">费用(元)</label>
+              <div class="controls">
+                <input type="text" class="span4 validate" placeholder="在此输入内容" id="Price1" rule="name:'费用', amount:true, notnull:true">
+              </div>
+            </div> 
+            <div class="form-actions">
+              <button type="button" class="btn btn-success" onclick="addCostinput(1)">录入</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>电费</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="#" method="get" class="form-horizontal" id="form2">
+            <div class="control-group">
+              <label class="control-label">户头</label>
+              <div class="controls">
+                <input type="text" class="span4 validate" placeholder="在此输入内容" id="userNum2" rule="name:'户头', notnull:true">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">费用(元)</label>
+              <div class="controls">
+                <input type="text" class="span4 validate" placeholder="在此输入内容" id="Price2" rule="name:'费用', amount:true, notnull:true">
+              </div>
+            </div> 
+            <div class="form-actions">
+              <button type="button" class="btn btn-success" onclick="addCostinput(2)">录入</button>
+            </div>
+          </form>
+        </div>
+      </div>
+       <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>宽带费</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="#" method="get" class="form-horizontal" id="form4">
+            <div class="control-group">
+              <label class="control-label">户头</label>
+              <div class="controls">
+                <input type="text" class="span4 validate" placeholder="在此输入内容" id="userNum4" rule="name:'户头', notnull:true"> 
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">费用(元)</label>
+              <div class="controls">
+                <input type="text" class="span4 validate" placeholder="在此输入内容" id="Price4" rule="name:'费用', amount:true, notnull:true">
+              </div>
+            </div> 
+            <div class="form-actions">
+              <button type="button" class="btn btn-success" onclick="addCostinput(4)">录入</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Footer-part-->
+<div class="row-fluid">
+  <div id="footer" class="span12">
+  服务热线：028-25855545<br/>
+  Copyright © 2014 XXXX 版权所有
+  </div>
+</div>
+<!--end-Footer-part-->
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/jquery.dataTables.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/matrix.tables.js"></script>
+<script>
+var date = '';
+var owner = '';
+var Unit='元';
+var feesName1 = '';
+
+//加载时间下拉框
+function getDate(){
+	 var date = new Date();
+     var nowYear = date.getFullYear();
+     $("#date").append("<option value='''>下拉选择日期</option>");
+	for(var i=1; i<=12;i++){
+		$("#date").append("<option  value='"+nowYear+"-"+i+"'>"+nowYear+"-"+i+"</option>");
+	}
+}
+//改变日期
+function changeDate(){
+	date = $("#date").val();
+}
+//改变充值用户
+function changeOwner(){
+	owner = $("#owner_data").val();
+	//加载户头列表
+	App.util.executeCmdSys("/user/queryAddressPage.action", {
+		residentialId:currentUser.myResidentialId,
+		userId:owner,
+		pageNum:'1',
+		pageSize:'-1'
+	},"get").success(function(result) {
+		if(result.addressRespList == null ||result.addressRespList.length==0){
+			$("#userNum5").html('');
+		}
+		$("#userNum5").append("<option value='''>下拉选择门牌号</option>");
+		$(result.addressRespList).each(function(){
+			$("#userNum5").append("<option  value='"+this.building+"-"+this.unit+"-"+this.number+"'>"+this.building+"-"+this.unit+"-"+this.number+"</option>");
+		});
+	});
+}
+function addCostinput(type){
+	var Price = '';
+	var userNum = '';
+	var formId = "";
+	if(App.util.validate($("#selectForm"))){
+		if(type == "1"){
+			Price = $("#Price1").val();
+			userNum = $("#userNum1").val();
+			feesName1 = '水费';
+			formId="#form1";
+		}else if(type == "2"){
+			Price = $("#Price2").val();
+			userNum = $("#userNum2").val();
+			feesName1 = '电费';
+			formId="#form2";
+		}else if(type == "3"){
+			Price = $("#Price3").val();
+			userNum = $("#userNum3").val();
+			feesName1 = '气费';
+			formId="#form3";
+		}else if(type == "4"){
+			Price = $("#Price4").val();
+			userNum = $("#userNum4").val();
+			feesName1 = '宽带费';
+			formId="#form4";
+		}else if(type == "5"){
+			Price = $("#Price5").val();
+			userNum = $("#userNum5").val();
+			feesName1 = '物管费';
+			formId="#form5";
+		}
+		if(App.util.validate($(formId))) {
+			App.util.executeCmd("/manage/addManagementFees.action", {
+				ownerId:owner,
+				type:type,
+				residentialId:currentUser.myResidentialId,
+				userNum:userNum,
+				Price:Price,
+				Unit:Unit,
+				feesName1:feesName1,
+				manageId:currentUser.userId,
+				feesName2:date
+				},"post").success(function(result) {
+					window.wxc.xcConfirm(result.codeDescription, window.wxc.xcConfirm.typeEnum.success,{onOk:function(){location.reload(true);}});
+					});
+			}
+		}
+	}
+
+$(function() {
+	//加载横幅菜单
+	banner();
+	//加载权限菜单
+	rightMenu(2);
+	
+	//初始化日期下拉框
+	getDate();
+	//加载用户列表
+	App.util.executeCmdSys("/user/queryUserPage.action", {
+		sex:'3',
+		pageSize:'-1',
+		residentialId:currentUser.myResidentialId
+	},"get").success(function(result) {
+		$("#owner_data").append("<option value='''>下拉选择用户</option>");
+		$(result.userRespList).each(function(){
+			var name=App.util.isNullorEmpty(this.userName)?this.nickName:this.userName;
+			$("#owner_data").append("<option  value='"+this.userId+"'>"+name+"_"+this.mobile+"</option>");
+		});
+	});
+	
+});
+</script>
+</body>
+</html>

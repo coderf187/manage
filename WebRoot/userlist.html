@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>物管系统</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/uniform.css" />
+<link rel="stylesheet" href="css/select2.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'> -->
+
+  <script src="normal/js/jquery-1.10.2.min.js" /></script>
+  <script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+  <script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" src="normal/js/menu.js"></script>
+</head>
+<body>
+<div class="header" id="banner">
+
+</div>
+
+<div id="sidebar">
+
+</div>
+<div id="content" class="mt90">
+  <div class="container-fluid">
+  <div class="span6 mt40">
+      <select id="residential"  onchange="changeResidential()">
+         <option  select="selected" value="">全部</option>
+      </select>
+    </div>
+    <hr>
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>用户列表</h5>
+          </div>
+          <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>电话</th>
+                  <th>昵称</th>
+                  <th>账号创建日期</th>
+                </tr>
+              </thead>
+              <tbody id="user_data">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
+      
+    </div>
+  </div>
+</div>
+<!--Footer-part-->
+<div class="row-fluid">
+  <div id="footer" class="span12">
+  服务热线：028-25855545<br/>
+  Copyright © 2014 XXXX 版权所有
+  </div>
+</div>
+<!--end-Footer-part-->
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/jquery.dataTables.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/matrix.tables.js"></script>
+
+<script>
+//初始化为第一页
+var pageNum = 1;
+var pageIndex = 1;
+var residentialId = '';
+//获取用户列表
+function getUserByPage(pageNum){
+	if(pageNum < 1){
+		window.wxc.xcConfirm('已经是第一页了!', window.wxc.xcConfirm.typeEnum.info);
+	}else if(pageNum > pageIndex){
+		window.wxc.xcConfirm('已经是最后一页了!', window.wxc.xcConfirm.typeEnum.info);
+	}else{
+		var html='';
+		App.util.executeCmdSys("/user/queryUserPage.action", {
+			sex:'3',
+			pageNum: pageNum,
+			pageSize:'10',
+			residentialId:residentialId
+		},"get").success(function(result) {
+			$(result.userRespList).each(function(){
+				html +=		'<tr class="even gradeA">'
+								+'<td>'+this.mobile+'</td>'
+								+'<td>'+this.nickName+'</td>'
+								+'<td class="center">'+new Date(this.createTime).format("yyyy-MM-dd")+'</td>'
+							'</tr>'
+								
+			});
+			$("#user_data").html(html);
+			pageIndex = Math.ceil(result.totalNum/10); 
+			if(result.totalNum == 0){
+				pageIndex = 1;
+			}
+			App.pageBar(result.pageNum,pageIndex,'getUserByPage');
+		});
+	}
+}
+
+//改变小区id
+function changeResidential(){
+	residentialId = $("#residential").val();
+	getUserByPage(1);
+}
+
+$(function() {
+	//加载横幅菜单
+	banner();
+	//加载权限菜单
+	rightMenu(1);
+	
+	//加载列表
+	getUserByPage(pageNum);
+	//加载小区列表
+	App.util.executeCmdSys("/user/queryResidentialPage.action", {},"post").success(function(result) {
+		$.each(result.residentialRespList, function(){
+			$("#residential").append("<option  value='"+this.residentialId+"'>"+this.name+"</option>");
+		});
+	});
+});
+</script>
+</body>
+</html>

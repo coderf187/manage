@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+	<link rel="stylesheet" href="css/matrix-style.css" />
+	<script src="normal/js/jquery-1.10.2.min.js" /></script>
+	<script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+	<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="normal/js/menu.js"></script>
+	
+</head>
+<body>
+	<div class="header" id="banner">
+
+	</div>
+	<div class="search">
+		<div class="inputdiv">
+			<input type="text"  placeholder="请输入您想要的" id="keyword"/>
+			<a class="go" href="#" onclick="query()"></a>
+		</div>
+	</div>
+	<div class="waterfull relative" id="waterfull">
+		<ul id="waterList_data">
+			<!-- <li class="waterli">
+				<div class="item">
+					<a href="housekeepdetail.html">
+						<img src="normal/images/teacher1.jpg" />
+					</a>
+					<div class="itemfoot">
+						<div class="name">
+							廖明秀
+						</div>
+						<div class="gray">
+							服务费用：<span class="yellow">3500/月</span>
+						</div>
+						<div class="gray">
+							服务类型：<span class="yellow">日常保洁</span>
+						</div>
+						<div class="gray">
+							工作年限：6年
+						</div>
+						
+					</div>
+				</div>
+			</li> -->
+		</ul>
+		<div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
+          <a tabindex="0" class="first ui-corner-tl ui-corner-bl fg-button ui-button ui-state-default ui-state-disabled" id="DataTables_Table_0_first">   首页
+          </a>
+          <a tabindex="0" class="previous fg-button ui-button ui-state-default ui-state-disabled" id="DataTables_Table_0_previous">上一页</a>
+          <span>
+            <a tabindex="0" class="fg-button ui-button ui-state-default ui-state-disabled">1</a>
+            <a tabindex="0" class="fg-button ui-button ui-state-default">2</a>
+            <a tabindex="0" class="fg-button ui-button ui-state-default">3</a>
+            <a tabindex="0" class="fg-button ui-button ui-state-default">4</a>
+            <a tabindex="0" class="fg-button ui-button ui-state-default">5</a>
+          </span>
+          <a tabindex="0" class="next fg-button ui-button ui-state-default" id="DataTables_Table_0_next">下一页</a>
+          <a tabindex="0" class="last ui-corner-tr ui-corner-br fg-button ui-button ui-state-default" id="DataTables_Table_0_last">尾页</a>
+       </div>
+	</div>
+	<div class="footer">
+		<div>服务热线：028-25855545</div>
+		<div>Copyright © 2014 XXXX 版权所有</div>
+	</div>
+	<script type="text/javascript">
+	var pageNum = 1;
+	var pageIndex = 1;
+	var keyword='';
+	function getHouseKeepByPage(pageNum){
+		if(pageNum < 1){
+			window.wxc.xcConfirm('已经是第一页了!', window.wxc.xcConfirm.typeEnum.info);
+		}else if(pageNum > pageIndex){
+			window.wxc.xcConfirm('已经是最后一页了!', window.wxc.xcConfirm.typeEnum.info);
+		}else{
+			var html='';
+			var temp=App.util.executeCmdSys("/wares/queryWaresUserInfoPage.action", {
+				pageNum: pageNum,
+				pageSize:'10',
+				type1:'2',
+				name1:keyword
+			},"get").success(function(result) {
+	  			$(result.waresUserInfoRespList).each(function(){
+	  				var image=App.util.isNullorEmpty(this.waresResp.Images)?'normal/images/nothing.jpg':this.waresResp.Images.split(',')[0];
+	  				var waresTypeId = this.waresResp.Type2;
+	  				var typeName = '';
+	  				 App.util.executeCmdSys("/wares/queryWaresTypePage.action", {grade:2,pId:2,waresTypeId:waresTypeId},"post").success(function(type) {
+	  					$.each(type.waresTypeRespList, function(){
+	  						if(this.waresTypeId == waresTypeId){
+	  							typeName = this.Name1;
+	  						}
+	  					});
+	  				});
+	  				html+='<li class="waterli">'
+		  					+'<div class="item">'
+		  						+'<a href="housekeepdetail.html?housekeepid='+this.waresResp.waresId+'"><img onload="App.util.waterfull()"' + ' src="'+image+'" /></a>'
+		  						+'<div class="itemfoot">'
+		  							+'<div class="name">'+((this.userInfo==null)?'无':this.userInfo.name)+'</div>'
+		  							+'<div class="gray">'+'服务费用：<span class="yellow">￥'+this.waresResp.Price+this.waresResp.Unit+'</span></div>'
+		  							+'<div class="gray">'+'服务类型：<span class="yellow">'+typeName+'</span></div>'
+									+'<div class="gray">工作年限：'+((this.userInfo==null)?'无':this.userInfo.workYears1)+'年</div>'
+								+'</div>'
+							+'</div>'
+						+'</li>'
+				});
+				$("#waterList_data").html(html);
+				pageIndex = Math.ceil(result.totalNum/10); 
+				if(result.totalNum == 0){
+					pageIndex = 1;
+				}
+				App.pageBar(result.pageNum,pageIndex,'getHouseKeepByPage');  
+			});
+		}
+		App.util.waterfull();
+	}
+
+	function query(){
+		keyword=$("#keyword").val();
+		getHouseKeepByPage(1);
+	}
+
+	$(function() {
+		//获取家教列表
+		getHouseKeepByPage(pageNum);
+		//加载横幅菜单
+		banner(1);
+	});
+	</script>
+</body>
+</html>

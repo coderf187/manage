@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+	<script src="normal/js/jquery-1.10.2.min.js" /></script>
+	<script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+	<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="normal/js/menu.js"></script>
+</head>
+<body>
+	<div class="header" id="banner">
+
+	</div>
+
+	<div class="secontent mt100">
+		<div class="centerblock">
+			<div class="fleft wid200 acenter">
+				<a href="#" id="headerphoto">
+					<img src="normal/images/teacher1.jpg">
+				</a>
+				<div class="star">
+					<img src="normal/images/star.png">
+					<img src="normal/images/star.png">
+					<img src="normal/images/star.png">
+					<img src="normal/images/graystar.png">
+					<img src="normal/images/graystar.png">										
+				</div>
+			</div>
+			<div class="fleft ">
+				<span class="username" id="name"></span><br/>
+				<span class="60" id="price"></span><br/>
+				<span id="name2"></span><br/>
+				<span id="name1"></span><br/>
+				<span id="description1"></span><br/>
+				<div class="mt10">
+					<a  class="order" href="#">预约</a>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="centerblock mt60">					
+			<div class="smallblock">
+				<img src="normal/images/inform.png">
+				<span class="ml10">课程安排</span>
+			</div>
+			<div class="pa20">
+				<table>
+					<tr>
+						<th>周一</th>
+						<th>周二</th>
+						<th>周三</th>
+						<th>周四</th>
+						<th>周五</th>
+						<th>周六</th>
+						<th>周日</th>
+					</tr>
+					<tr>
+						<td id="Monday_AM"></td>
+						<td id="Tuesday_AM"></td>
+						<td id="Wednesday_AM"></td>
+						<td id="Thursday_AM"></td>
+						<td id="Friday_AM"></td>
+						<td id="Saturday_AM"></td>
+						<td id="Sunday_AM"></td>
+					</tr>
+					<tr>
+						<td id="Monday_PM"></td>
+						<td id="Tuesday_PM"></td>
+						<td id="Wednesday_PM"></td>
+						<td id="Thursday_PM"></td>
+						<td id="Friday_PM"></td>
+						<td id="Saturday_PM"></td>
+						<td id="Sunday_PM"></td>
+					</tr>
+					<tr>
+						<td id="Monday_Night"></td>
+						<td id="Tuesday_Night"></td>
+						<td id="Wednesday_Night"></td>
+						<td id="Thursday_Night"></td>
+						<td id="Friday_Night"></td>
+						<td id="Saturday_Night"></td>
+						<td id="Sunday_Night"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="centerblock mt60">
+			<div class="smallblock">
+				<img src="normal/images/inform.png">
+				<span class="ml10">用户评价</span>
+			</div>
+			<div class="comment">
+				<ul id="WaresAppraise_data">
+					<li>
+						<div class="fleft">
+							<div class="commentheader">
+								<img src="normal/images/aunt.jpg">
+							</div>
+						</div>
+						<div class="fleft ml10 ">
+							<div class="gray">黄东华</div>
+							<div class="gray">10分钟前</div>
+							<div class="mt10" >Lily老师教的很好，我家孩子英语进步的很快</div>							
+						</div>
+						<div class="clear"></div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<div>服务热线：028-25855545</div>
+		<div>Copyright © 2014 XXXX 版权所有</div>
+	</div>
+	<script type="text/javascript">
+	$(function(){
+		//加载横幅菜单
+		banner(2);
+		
+		  var waresId=App.util.getUrlParam('hometeacherid');
+		  if(!(waresId==null || waresId==''||waresId==undefined)){
+			  App.util.executeCmdSys("/wares/queryWaresById.action", {
+					waresId: waresId
+					},"get").success(function(result) {
+						if(result.code=='succ001'){
+							var userInfo='';
+							App.util.executeCmdSys("/wares/queryUserInfoByWaresId.action",{
+								waresId:result.waresId
+							},"get").success(function(res){
+								userInfo=res;
+							})
+							  //老师姓名
+							  var name=$('#name').text(userInfo.name==undefined?'无姓名':userInfo.name);
+							  //课程单价
+							  $('#price').text("课程单价："+result.Price+result.Unit);
+							  //毕业院校
+							  $('#name2').text("毕业院校："+result.Name2);
+							  //培训课程
+							  $('#name1').text("培训课程："+result.Name1);
+							  //自我评价
+							  $('#description1').text("自我评价：" +result.description1);
+							  var image=App.util.isNullorEmpty(result.Images)?'normal/images/nothing.jpg':result.Images.split(',')[0];
+							  $('#headerphoto').html('<img src="'+image+'">');
+							  //课程安排（格式：周一_上午_7:00-12:00,周二_中午_14:00-15:00,周三_晚上_18:00-19:00）
+							  /* var Monday_AM_1 */
+							  /* alert(result.description2); */
+							  if(result.description2!=null && result.description2!=''){
+								  var infos=result.description2.split(',');
+								  for(var i=0;i<infos.length;i++){
+									  var temps=infos[i].split('_');
+									  if(temps[0]=='周一'){
+										  if(temps[1]=='上午'){
+											  $('#Monday_AM').text(temps[2]);
+										  }
+										  if(temps[1]=='下午'){
+											  $('#Monday_PM').text(temps[2]);
+										  }
+										  if(temps[1]=='晚上'){
+											  $('#Monday_Night').text(temps[2]);
+										  }
+									  }
+									  if(temps[0]=='周二'){
+										  if(temps[1]=='上午'){
+											  $('#Tuesday_AM').text(temps[2]);
+										  }
+										  if(temps[1]=='下午'){
+											  $('#Tuesday_PM').text(temps[2]);
+										  }
+										  if(temps[1]=='晚上'){
+											  $('#Tuesday_Night').text(temps[2]);
+										  }
+									  }
+									  if(temps[0]=='周三'){
+										  if(temps[1]=='上午'){
+											  $('#Wednesday_AM').text(temps[2]);
+										  }
+										  if(temps[1]=='下午'){
+											  $('#Wednesday_PM').text(temps[2]);
+										  }
+										  if(temps[1]=='晚上'){
+											  $('#Wednesday_Night').text(temps[2]);
+										  }
+									  }
+									  if(temps[0]=='周四'){
+										  if(temps[1]=='上午'){
+											  $('#Thursday_AM').text(temps[2]);
+										  }
+										  if(temps[1]=='下午'){
+											  $('#Thursday_PM').text(temps[2]);
+										  }
+										  if(temps[1]=='晚上'){
+											  $('#Thursday_Night').text(temps[2]);
+										  }
+									  }
+									  if(temps[0]=='周五'){
+										  if(temps[1]=='上午'){
+											  $('#Friday_AM').text(temps[2]);
+										  }
+										  if(temps[1]=='下午'){
+											  $('#Friday_PM').text(temps[2]);
+										  }
+										  if(temps[1]=='晚上'){
+											  $('#Friday_Night').text(temps[2]);
+										  }
+									  }
+									  if(temps[0]=='周六'){
+										  if(temps[1]=='上午'){
+											  $('#Saturday_AM').text(temps[2]);
+										  }
+										  if(temps[1]=='下午'){
+											  $('#Saturday_PM').text(temps[2]);
+										  }
+										  if(temps[1]=='晚上'){
+											  $('#Saturday_Night').text(temps[2]);
+										  }
+									  }
+									  if(temps[0]=='周日'){
+										  if(temps[1]=='上午'){
+											  $('#Sunday_AM').text(temps[2]);
+										  }
+										  if(temps[1]=='下午'){
+											  $('#Sunday_PM').text(temps[2]);
+										  }
+										  if(temps[1]=='晚上'){
+											  $('#Sunday_Night').text(temps[2]);
+										  }
+									  }
+								  }
+							  }
+							  
+						}
+				});
+			  App.util.executeCmdSys("/wares/queryWaresAppraisePage.action",{
+				  waresId:waresId
+				},"get").success(function(result){
+					var html='';
+					$(result.waresAppraiseRespList).each(function(){
+						var userInfo='';
+						App.util.executeCmdSys("/wares/queryWaresAppraisePage.action",{
+							userId  :this.userId,
+							sex:'3'
+							},"get").success(function(result){
+								userInfo=result
+							});
+						html+=	'<li>'
+									+'<div class="fleft">'
+										+'<div class="commentheader"><img src="'+userInfo.avatar+'"></div>'
+									+'</div>'
+									+'<div class="fleft ml10 ">'
+										+'<div class="gray">'+this.userName+'</div>'
+										+'<div class="gray">10分钟前</div>'
+										+'<div class="mt10" >'+this.content1+'</div>'
+									+'</div>'
+									+'<div class="clear"></div>'
+								+'</li>'
+					});
+					
+					$('#WaresAppraise_data').text(html);
+				})
+		  }else{
+			  window.wxc.xcConfirm('waresId不能为空', window.wxc.xcConfirm.typeEnum.warning);
+		  }
+	})
+	</script> 
+</body>
+</html>

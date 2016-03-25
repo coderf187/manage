@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+	<script src="normal/js/jquery-1.10.2.min.js" /></script>
+	<script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+	<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+	<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body class="loginbg">
+	<div class="header">
+		<div class="logo">
+			<img src="normal/images/logo.png" alt="logo" />
+			<span>XXX物业有限公司</span>
+		</div>
+		<div class="headercontent ">
+			<ul>
+				<li>
+					<a href="index.html">首页</a>
+				</li>
+				<li>
+					<a href="housekeep.html">家政</a>
+				</li>
+				<li>
+					<a href="hometeacher.html">家教</a>
+				</li>
+				<li>
+					<a href="houserent.html">租房</a>
+				</li>
+				<li>
+					<a href="house.html">二手房</a>
+				</li>
+				<li>
+					<a href="download.html">APP下载</a>
+				</li>
+				<div class="clear"></div>
+			</ul>
+		</div>
+		<div class="res-lo">
+			<a href="login.html">【登录】</a>
+			<a href="register.html">【注册】</a>
+		</div>
+	</div>
+	<form action="#" method="get" class="form-horizontal" id="loginForm">
+		<div class="loginform">
+			<div class="loginimg acenter">
+				<img src="normal/images/logo.png" alt="logo" />
+				XXX系统登录
+			</div>
+			<input type="text" placeholder="手机号" id="mobile" class="validate" rule="name:'手机号', mobile: true, notnull:true">
+			<input type="password" placeholder="密码" id="password" class="validate" rule="name:'密码', notnull:true">
+			<div>
+				<a id="login">
+					<input type="button" value="登录" />
+				</a>
+			</div>
+			<div class="acenter">
+				<a href="register.html">还没有账号？去注册</a>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		$(function() {
+			$("#login").unbind().bind("click", function() {
+				if(App.util.validate("#loginForm")) {
+					var mobileValue = $("#mobile").val();
+					var passwordValue= $("#password").val();
+					
+					App.login(mobileValue, passwordValue).success(function(result) {
+						if(result.token && result.token != "") {
+							window.location.href = "userindex.html";
+						} else {
+							window.wxc.xcConfirm(result.codeDescription, window.wxc.xcConfirm.typeEnum.error);
+						}
+					});
+				}
+			});
+		});
+	</script>
+</body>
+</html>

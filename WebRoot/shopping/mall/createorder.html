@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>填写订单</title>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link href="../css/swiper.min.css" rel="stylesheet" />
+    <link href="../css/commom.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../css/xcConfirm.css"/>
+    <link rel="stylesheet" href="../../css/uniform.css" />
+    <script src="../../normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../normal/js/normal.js" /></script>
+ 	<script src="../../normal/js/common.js" /></script>
+ 	<script src="../js/currentuser.js"></script>
+</head>
+ <body class="pabthreerem"> 
+  <div id="pdes">
+   <div class=" bgwhite ">
+    <div id="productimgs" class="biggiftimg">
+     <div class="swiper-container swiper-container-horizontal">
+      <div class="swiper-wrapper"> 
+       <div id="image" class="swiper-slide swiper-slide-active" style="width: 320px;">
+       
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="bgblock">
+    <div class=" mlper6 adritem wb  patbb ">
+     <div class="widper70 c-line" id='Name1'>
+      	
+     </div> 
+     <div class="widper30 tcenter y-font">
+      ￥
+      <span class="p26 y-font" id="Price">	</span>
+     </div>
+    </div>
+    <div class="bgitem mlper6 oneline wb last">
+     <div class="widper40">
+      购买数量
+     </div>
+     <div class="widper60 tright relative ">
+      <div class="minus reduce">
+       -
+      </div>
+      <input type="text" id="txtcount" class="mrthreerem buycount" value="1" readonly="readonly"/>
+      <div class="plus add">
+       +
+      </div>
+     </div>
+    </div> 
+   </div> 
+   <div id="myaddress">
+    <div class="mlper6 pat mt10 mb10">
+     收货信息
+    </div>
+    <div class="bgblock  wb">
+     <div class="widper90" >
+      <a href="addresslist.html">
+          <div class="adritem mlper6 last">
+           谢翠萍
+          </div>
+          <div class="adritem mlper6 last ">
+           18202877344
+          </div>
+          <div class="adritem mlper6  last ">
+           四川省成都市武侯区小天东巷90号
+          </div>
+         </div>
+         <div class="widper10">
+          <img class="adricon" src="../images/next.png" />
+         </div>
+        </div>
+      </a>
+   </div>
+   
+   <div class="mt10">
+      <a href="addresslist.html">
+	   <div class="bgblock  wb">
+		<div class="widper90">
+			  <div class="adritem mlper6 last lh5 y-font p26">
+			   +添加收货地址
+			  </div>
+		</div>
+         <div class="widper10">
+          <img class="adricon mt22 " src="../images/next.png" />
+         </div>
+        </div>
+		 </div>
+      </a> 
+   </div>
+   <div class="bottom wb">
+    <div class="widper70 y-font tcenter p26">
+     应支付:
+     <span  class="p26" id="totolAmount">	</span>
+    </div>
+    <div class="widper30"> 
+     <input type="button" id="btnok" class="btnblock widper100 " onclick="createorder(50)" value="确认支付" />
+    </div>
+   </div>
+  </div> 
+  <script src="../js/swiper.min.js"></script> 
+  <script>
+  var waresId = '';
+  var wares='';
+  
+ 
+  $(function(){
+	  //显示产品
+  	  waresId=App.util.getUrlParam('waresId');
+  	  if(App.util.isNullorEmpty(waresId)){
+  		  window.wxc.xcConfirm('waresId不能为空', window.wxc.xcConfirm.typeEnum.warning);
+  	  }else{
+  		  var html='';
+  		  App.util.executeCmdSys("/wares/queryWaresById.action", {
+  			waresId: waresId
+  			},"get").success(function(result) {
+  				if(result.code=='succ001'){
+  					wares=result;
+  				}
+  			});
+  		  
+  		  $('#Name1').text(wares?wares.Name1:'');
+  		  $('#Price').text(wares?(wares.Price+wares.Unit):'');
+  		  $('#totolAmount').text(wares?(wares.Price+wares.Unit):'');
+  		
+  		  var image='';
+           	if(App.util.isNullorEmpty(wares.Images)){
+           		image= '<img src="../../normal/images/nothing.jpg" alt="产品详细图片" />';
+           	}else{
+           		var imageArray=wares.Images.split(',');
+           		image = '<img src="'+ imageArray[0] +'" alt="产品图片" />';
+           	}
+           	$('#image').html(image);
+  	  }
+  	  
+  	  //获取当前用户的默认收货地址
+  	  App.util.executeCmdSys("/wares/queryWaresById.action", {
+  		  waresId: waresId
+  	   },"get").success(function(result) {
+  		  if(result.code=='succ001'){
+  			  wares=result;
+  		  }
+  	   });
+})
+
+ 
+ function initswip() {
+     var swiper = new Swiper('.swiper-container', {
+         pagination: '.swiper-pagination',
+         paginationClickable: true,
+
+     });
+ }
+  //减小数字
+  $(".reduce").click(function () {          
+       var quantity = parseInt($("#txtcount").val()) ;
+       quantity = parseInt(quantity) - 1;
+       if(quantity >0){
+         $("#txtcount").val(quantity);
+         $("#totolAmount").text(quantity*wares.Price+wares.Unit);
+       }
+   });
+
+  //增大数字
+   $(".add").click(function () {
+       var quantity = parseInt($("#txtcount").val());
+       quantity = parseInt(quantity) + 1;
+       $("#txtcount").val(quantity);   
+       $("#totolAmount").text(quantity*wares.Price+wares.Unit);
+   });
+</script>
+ </body>
+</html>

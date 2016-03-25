@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>物管系统</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+<link rel="stylesheet" href="css/uniform.css" />
+<link rel="stylesheet" href="css/select2.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'> -->
+<script src="normal/js/jquery-1.10.2.min.js" /></script>
+<script src="normal/js/normal.js" /></script>
+ <script src="normal/js/common.js" /></script>
+<script src="avater/swfobject.js" /></script>
+<script src="avater/fullAvatarEditor.js" /></script>
+<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="normal/js/menu.js"></script>
+
+</head>
+<body>
+<div class="header" id="banner">
+    
+</div>
+
+<div id="sidebar">
+
+</div>
+<div id="content" class="mt90">
+  <div class="container-fluid">
+    <hr>
+    <div class="row-fluid">
+      <div class="span6">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+              <h5>发布家政</h5>
+            </div>
+            <div class="widget-content nopadding">
+              <form action="#" method="get" class="form-horizontal" id="housekeepForm">
+                <div class="control-group">
+                  <label class="control-label">钟点工姓名</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="请输入钟点工姓名" id="name" rule="name:'钟点工姓名', notnull:true">
+                  </div>
+                </div>
+                 <div class="control-group">
+                  <label class="control-label">联系方式</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="请输入联系方式" id="mobile" rule="name:'联系方式', mobile: true, notnull:true">
+                  </div>
+                </div>
+                 <div class="control-group">
+                  <label class="control-label">价格(元/时)</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="请输入价格" id="Price" rule="name:'价格', amount: true, notnull:true">
+                  </div>
+                </div>
+                 <div class="control-group">
+                  <label class="control-label">工作年限(年)</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="请输入工作年限" id="workYears1" rule="name:'工作年限', number:true, notnull:true">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">籍贯</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="请输入籍贯" id="homeTown" rule="name:'籍贯', notnull:true">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">民族</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="请输入民族" id="nation" rule="name:'民族', notnull:true">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">年龄(岁)</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="请输入年龄" id="age" rule="name:'年龄', number:true, notnull:true">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">当前城市</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="请输入当前城市" id="city" rule="name:'当前城市', notnull:true">
+                  </div>
+                </div>
+                 <div class="control-group">
+                  <label class="control-label">最高学历</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="请输入最高学历" id="education" rule="name:'最高学历', notnull:true">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">当前状态</label>
+                    <div class="controls">
+                        <div class="select2-container" id="s2id_autogen1"> 
+                          <select style="display: none;" id="status" class="validate" rule="name:'当前状态', notnull:true">
+                          <option value="待岗">待岗</option>
+                          <option value="离岗">离岗</option>
+                        </select>
+                      </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                <label class="control-label">类型</label>
+                  <div class="controls">
+                        <div class="select2-container" id="s2id_autogen1"> 
+                          <select style="display: none;" id="Type2" class="validate" rule="name:'类型', notnull:true">
+                         
+                          </select>
+                      </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                  <button type="button" class="btn btn-success" onclick="addWares()">发布信息</button>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+      <div class="span4">
+        <div class="span2">
+	       	<div class=" wid200" id="image">
+	           
+	        </div>
+           <div style="text-align:center;display:none" id="imageedit">
+              <div class="editclose">X</div>
+              <div>
+                <p id="swfContainer">
+                   本组件需要安装Flash Player后才可使用，请从<a href="http://www.adobe.com/go/getflashplayer">这里</a>下载安装。
+                </p>
+              </div>
+              <button type="button" id="upload" style="display:none;margin-top:8px;">swf外定义的上传按钮，点击可执行上传保存操作</button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--Footer-part-->
+<div class="row-fluid">
+  <div id="footer" class="span12">
+  服务热线：028-25855545<br/>
+  Copyright © 2014 XXXX 版权所有
+  </div>
+</div>
+<div class="overlay"></div>
+<!--end-Footer-part-->
+<script type="text/javascript">
+$(function(){
+    var  hei_ = $(window).height();
+    $('.overlay').css('height',hei_);
+    $('.imagechange').click(function(){
+        $('#imageedit').show();
+        $('.overlay').show();
+    })
+    $('.editclose').click(function(){
+      $('#imageedit').hide();
+       $('.overlay').hide();
+   })
+   })
+	var imageHtml = '';
+	var typeHtml = '';
+	var description1 = '';
+
+	var url = '';
+    swfobject.addDomLoadEvent(function () {
+    //以下两行代码正式环境下请删除
+   // if(location.href.indexOf('http://') == -1) 
+    //alert('请于WEB服务器环境中查看、测试！\n\n既 http://*/simpleDemo.html\n\n而不是本地路径 file:///*/simpleDemo.html的方式');
+    var swf = new fullAvatarEditor("fullAvatarEditor.swf", "expressInstall.swf", "swfContainer", {
+        id : 'swf',
+        upload_url : '/manage/fileUpload',  //上传接口
+        method : 'post',  //传递到上传接口中的查询参数的提交方式。更改该值时，请注意更改上传接口中的查询参数的接收方式
+        src_upload : 2    //是否上传原图片的选项，有以下值：0-不上传；1-上传；2-显示复选框由用户选择
+      }, function (msg) {
+        switch(msg.code)
+        {
+          case 1 : break;
+          case 2 : 
+            document.getElementById("upload").style.display = "inline";
+            break;
+          case 3 :
+            if(msg.type == 0)
+            {
+            	window.wxc.xcConfirm('摄像头已准备就绪且用户已允许使用。', window.wxc.xcConfirm.typeEnum.info);
+            }
+            else if(msg.type == 1)
+            {
+            	window.wxc.xcConfirm("摄像头已准备就绪但用户未允许使用！", window.wxc.xcConfirm.typeEnum.info);
+            }
+            else
+            {
+            	window.wxc.xcConfirm("摄像头被占用！", window.wxc.xcConfirm.typeEnum.info);
+            }
+          break;
+          case 5 : 
+            if(msg.type == 1)
+            {
+            	if(msg.content&&msg.content[0]){
+            		url = msg.content[0].url;
+            		$("#image").html('');
+            		 imageHtml = '<a href="#">'
+            				+ '<img src="'+url+'" />'
+            				+'</a>'
+            				+'<button class="imagechange btn btn-info" onclick="changeImage()">修改图片</button>';
+            		$("#image").html(imageHtml);
+            		window.wxc.xcConfirm("图片上传成功!", window.wxc.xcConfirm.typeEnum.success);
+            	}else{
+            		window.wxc.xcConfirm("图片上传失败，请刷新页面重试!", window.wxc.xcConfirm.typeEnum.error);
+            	}
+            }
+          break;
+        }
+      }
+    );
+    document.getElementById("upload").onclick=function(){
+      swf.call("upload");
+    };
+    });
+  var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+  document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F5f036dd99455cb8adc9de73e2f052f72' type='text/javascript'%3E%3C/script%3E"));
+  
+//绑定修改图片事件
+	function changeImage(){
+		$('#imageedit').show();
+		}
+  
+  //发布信息
+  function addWares(){
+	  if(App.util.validate($("#housekeepForm"))){
+	  	var name = $("#name").val();
+		var mobile = $("#mobile").val();
+		var workYears1 = $("#workYears1").val();
+		var homeTown = $("#homeTown").val();
+		var nation = $("#nation").val();
+		var age = $("#age").val();
+		var city = $("#city").val();
+		var education = $("#education").val();
+		var status = $("#status").val();
+		
+		
+		var description1 = $("#Type2").find("option:selected").text();
+		var Price = $("#Price").val();
+		var Unit = "元/小时"
+		var Type1 = "2";
+		var Type2 = $("#Type2").val();
+		var waresId=App.util.getUrlParam('waresId');
+		if(waresId==null ||waresId==''|| waresId==undefined){
+			App.util.executeCmdSys("/wares/addWares.action", {
+				sellerId:currentUser.userId,
+		  		//单价
+		  	  	Price:Price,
+		  	  	Unit:Unit,
+		  	  	//标题
+		  	  	Name1:'',
+		  	  	Images:url,
+		  	  	//描述
+		  	  	description1:description1,
+		  	  	Type1:Type1,
+		  	  	Type2:Type2
+		  		},"post").success(function(result) {
+		  			if(result.code=='succ001'){
+						App.util.executeCmdSys("/wares/addUserInfo.action", {
+							waresId: result.waresId,
+			  				name : name,
+						    mobile : mobile,
+						    workYears1 : workYears1,
+						    homeTown : homeTown,
+						    nation : nation,
+							age : age,
+							city : city,
+							education : education,
+							status : status
+							},"post").success(function(res) {
+								if(res.code=='succ001'){
+									window.wxc.xcConfirm("家政发布成功", window.wxc.xcConfirm.typeEnum.success,{onOk:function(){window.location.href = "modhousekeep.html";}});
+			  						}else{
+			  							window.wxc.xcConfirm("家政发布失败", window.wxc.xcConfirm.typeEnum.error);
+			  							}
+								});
+		   				
+		  			}else{
+		  				window.wxc.xcConfirm("家政发布失败", window.wxc.xcConfirm.typeEnum.error);
+		  			}
+		  		}); 
+		  }else{
+			  //修改操作
+			  App.util.executeCmdSys("/wares/updateWares.action", {
+				waresId: waresId,
+				sellerId:currentUser.userId,
+		  		//单价
+		  	  	Price:Price,
+		  	  	Unit:Unit,
+		  	  	//标题
+		  	  	Name1:'',
+		  	  	Images:url,
+		  	  	//描述
+		  	  	description1:description1,
+		  	  	Type1:Type1,
+		  	  	Type2:Type2
+		  		},"post").success(function(result) {
+		  			if(result.code=='succ001'){
+		  				var userInfo='';
+						App.util.executeCmdSys("/wares/queryUserInfoByWaresId.action", {
+		  					waresId: waresId
+		  				},"post").success(function(res) {
+		  					userInfo=res;
+		  				});
+						App.util.executeCmdSys("/wares/updateUserInfo.action", {
+			   				userInfoId: userInfo.userInfoId,
+			  				name: name,
+			  				mobile: mobile,
+			  				waresId:waresId,
+	  			  			workYears1: workYears1,
+	  			  			nation: nation,
+	  			  			age: age,
+	  			  			city: city,
+	  			  			education: education,
+	  			  			status: status,
+	  			  			workTime: userInfo.workTime,
+	  			  			workYears2: userInfo.workYears2,
+	  			  			address: userInfo.address,
+	  			  			homeTown: homeTown,
+	  			  			field1: userInfo.field1,
+	  			  			field2: userInfo.field2,
+	  			  			field3: userInfo.field3,
+	  			  			field4: userInfo.field4,
+	  			  			creatTIme: userInfo.creatTIme,
+	  			  			updateTime: userInfo.updateTime
+			  				},"post").success(function(res) {
+			  					if(res.code=='succ001'){
+			  						window.wxc.xcConfirm("家政修改成功", window.wxc.xcConfirm.typeEnum.success,{onOk:function(){window.location.href = "modhousekeep.html";}});
+			  					}else{
+			  						window.wxc.xcConfirm("家政修改失败", window.wxc.xcConfirm.typeEnum.error);
+			  					}
+			  				});
+		   				
+		  			}else{
+		  				window.wxc.xcConfirm("家政修改失败", window.wxc.xcConfirm.typeEnum.error);
+		  			}
+		  	}); 
+		  }
+		}
+  }
+	
+ //加载类别选项
+ $(function() {
+	//加载横幅菜单
+	banner();
+	//加载权限菜单
+	rightMenu(10);
+	
+	//加载家政技能列表
+	  App.util.executeCmdSys("/wares/queryWaresTypePage.action", {grade:2,pId:2},"post").success(function(result) {
+			$.each(result.waresTypeRespList, function(){
+				$("#Type2").append("<option value='"+this.waresTypeId+"'>"+this.Name1+"</option>");
+			});
+		});
+	//用于回显
+	var waresId=App.util.getUrlParam('waresId');
+	 if(!(waresId==null || waresId=='')){
+		 $('#imageedit').hide();
+		  App.util.executeCmdSys("/wares/queryWaresById.action", {
+				waresId: waresId
+				},"get").success(function(result) {
+					if(result.code=='succ001'){
+						var userInfo='';
+						App.util.executeCmdSys("/wares/queryUserInfoByWaresId.action",{
+							waresId:result.waresId
+						},"get").success(function(res){
+							userInfo=res;
+						})
+						url = result.Images;
+						
+						$("#name").val(userInfo.name);
+						$("#mobile").val(userInfo.mobile);
+						$("#workYears1").val(userInfo.workYears1);
+						$("#homeTown").val(userInfo.homeTown);
+						$("#nation").val(userInfo.nation);
+						$("#age").val(userInfo.age);
+						$("#city").val(userInfo.city);
+						$("#education").val(userInfo.education);
+						$("#status").val(userInfo.status);
+						$("#status option").each(function(i,n){
+							if($(n).val()==userInfo.status){
+								$(n).attr("selected",true);
+								}
+							});
+						$("#Type2 option").each(function(i,n){
+							if($(n).val()==result.Type2){
+								$(n).attr("selected",true);
+								}
+							});
+						$("#Price").val(result.Price);
+					}
+			});
+	  }
+	 if(url == '' || url == null){
+		 url = 'normal/images/nothing.jpg';
+	 }
+	 imageHtml = '<a href="#">'
+			+ '<img src="'+url+'" />'
+			+'</a>'
+			+'<button class="imagechange btn btn-info" onclick="changeImage()">修改图片</button>';
+	$("#image").html(imageHtml);
+});
+</script>
+
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/jquery.dataTables.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/matrix.tables.js"></script>
+
+</body>
+</html>

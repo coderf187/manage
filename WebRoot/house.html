@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+	<link rel="stylesheet" href="css/matrix-style.css" />
+	<script src="normal/js/jquery-1.10.2.min.js" /></script>
+	<script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+	<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="normal/js/menu.js"></script>
+</head>
+<body>
+	<div class="header" id="banner">
+
+	</div>
+	<div class="search">
+		<div class="inputdiv">
+			<input type="text"  placeholder="请输入您想要的" id="keyword"/>
+			<a class="go" href="#" onclick="query()"></a>
+		</div>
+	</div>
+	<div class="waterfull relative" id="waterfull">
+		<ul id="houser_data">
+<!-- 			<li class="waterli">
+				<div class="item">
+					<a href="houserentdetail.html">
+						<img src="normal/images/house1.jpg" />
+					</a>
+					<div class="itemfoot">
+							<div class="name">
+							紫苑小区精装修套一
+						</div>
+						<div class="gray">
+							价格：<span class="yellow">7000元/㎡</span>
+						</div>
+						<div class="gray">
+							两室一厅 80㎡
+						</div>
+					</div>
+				</div>
+			</li> -->
+		</ul>
+		<div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
+       </div>
+	  </div>
+	<div class="footer">
+		<div>服务热线：028-25855545</div>
+		<div>Copyright © 2014 XXXX 版权所有</div>
+	</div>
+	<script type="text/javascript">
+	var pageNum = 1;
+	var pageIndex = 1;
+	var keyword='';
+	function getHouseByPage(pageNum){
+		if(pageNum < 1){
+			window.wxc.xcConfirm('已经是第一页了!', window.wxc.xcConfirm.typeEnum.info);
+		}else if(pageNum > pageIndex){
+			window.wxc.xcConfirm('已经是最后一页了!', window.wxc.xcConfirm.typeEnum.info);
+		}else{
+			var html='';
+			var temp=App.util.executeCmdSys("/wares/queryWaresHouseInfoPage.action", {
+				pageNum: pageNum,
+				pageSize:'10',
+				type1:'3',
+				type2:'1',
+				grade:'2',
+				pId:'1',
+				name1:keyword
+			},"get").success(function(result) {
+	  			$(result.waresHouseInfoRespList).each(function(){
+	  				var image=App.util.isNullorEmpty(this.waresResp.Images)?'normal/images/nothing.jpg':this.waresResp.Images.split(',')[0];
+	  				html+='<li class="waterli">'
+		  					+'<div class="item">'
+		  						+'<a href="housedetail.html?waresId='+this.waresResp.waresId+'"><img onload="App.util.waterfull()"' + ' src="'+image+'" /></a>'
+		  						+'<div class="itemfoot">'
+		  							+'<div class="name">'+(this.houseInfo==null?'':(this.houseInfo.renovation+'&nbsp;'+this.houseInfo.hall))+'</div>'
+									+'<div class="gray">'+'价格：<span class="yellow">'+this.waresResp.Price+this.waresResp.Unit+'</span></div>'
+									+'<div class="gray">'+(this.houseInfo==null?'':(this.houseInfo.address+'&nbsp;'+this.houseInfo.residName))+'</div>'
+								+'</div>'
+							+'</div>'
+						+'</li>'
+				});
+				$("#houser_data").html(html);
+				pageIndex = Math.ceil(result.totalNum/10); 
+				if(result.totalNum == 0){
+					pageIndex = 1;
+				}
+				App.pageBar(result.pageNum,pageIndex,'getHouseByPage');  
+			});
+		}
+	}
+
+	function query(){
+		keyword=$("#keyword").val();
+		getHouseRentByPage(1);
+	}
+
+	$(function() {
+		//获取二手房列表
+		getHouseByPage(pageNum);
+		//加载横幅菜单
+		banner(4);
+	});
+	</script>
+</body>
+</html>

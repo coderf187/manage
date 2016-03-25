@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>物管系统</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/uniform.css" />
+<link rel="stylesheet" href="css/select2.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'> -->
+<script src="normal/js/jquery-1.10.2.min.js" /></script>
+<script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="normal/js/menu.js"></script>
+</head>
+<body>
+<div class="header" id="banner">
+    
+
+</div>
+<div id="sidebar">
+
+</div>
+<div id="content" class="mt90">
+  <div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span4 mt40">
+            <select id="waresTypes1" onchange="changeChildWaresTypes2()">
+              <option value="0" select="selected">下拉选择类别</option>
+            </select>
+        </div>
+        <div class="span4 mt40">
+            <select id="waresTypes2" onchange="changeMakeOrderList()">
+              <option value="0" select="selected">下拉选择类别</option>
+            </select>
+        </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>客户预约</h5>
+          </div>
+          <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>客户电话</th>
+                  <th>预约内容</th>
+                  <th>类别</th>
+                </tr>
+              </thead>
+              <tbody id="makeorder_data">
+                <!-- <tr class="odd gradeX">
+                  <td>15689714565</td>
+                  <td>9月28号下午到华丽锦城看房</td>
+                  <td>家电维修</td>
+                </tr>
+                 <tr class="odd gradeX">
+                  <td>15689714565</td>
+                  <td>9月28号下午到华丽锦城看房</td>
+                  <td>临时工</td>
+                </tr> -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
+       </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--Footer-part-->
+<div class="row-fluid">
+  <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in/">Themedesigner.in</a> </div>
+</div>
+<!--end-Footer-part-->
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/jquery.dataTables.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/matrix.tables.js"></script>
+<script>
+//初始化为第一页
+var pageNum = 1;
+var pageIndex = 1;
+var waresType2 = '';
+var waresType1 = '';
+//获取用户列表
+function getMakeOrderByPage(pageNum){
+	if(pageNum < 1){
+		window.wxc.xcConfirm('已经是第一页了!', window.wxc.xcConfirm.typeEnum.info);
+	}else if(pageNum > pageIndex){
+		window.wxc.xcConfirm('已经是最后一页了!', window.wxc.xcConfirm.typeEnum.info);
+	}else{
+		var html='';
+		App.util.executeCmdSys("/business/queryWaresOrdersPage.action", {
+			pageNum: pageNum,
+			pageSize:'10',
+			waresType1:waresType1,
+			waresType2:waresType2,
+			status:'2'
+		},"get").success(function(result) {
+			$(result.waresOrderRespList).each(function(){
+				var phone='';
+				App.util.executeCmdSys("/wares/queryUserInfoByWaresId.action", {
+					waresId: this.waresId
+					},"get").success(function(result) {
+						phone=result.mobile;
+				});
+				var typeName = this.waresType1Name + (App.util.isNullorEmpty(this.waresType2Name)?"":this.waresType2Name) + (App.util.isNullorEmpty(this.waresType3Name)?"":this.waresType3Name);
+				html +=		'<tr class="odd gradeX">'
+								+'<td>'+phone+'</td>'
+								+'<td>'+this.description+'</td>'
+								+'<td class="center">'+typeName+'</td>'
+							'</tr>'
+								
+			});
+			$("#makeorder_data").html(html);
+			pageIndex = Math.ceil(result.totalNum/10); 
+			if(result.totalNum == 0){
+				pageIndex = 1;
+			}
+			App.pageBar(result.pageNum,pageIndex,'getMakeOrderByPage');
+		});
+	}
+}
+
+//改变预约列表
+function changeMakeOrderList(){
+	waresType2= $("#waresTypes2").val();
+	getMakeOrderByPage(1);
+	/* residentialId = $("#residential").val();
+	getUserByPage(1); */
+}
+
+//改变子类别
+function changeChildWaresTypes2(){
+	waresTypes1= $("#waresTypes1").val();
+	waresType2 = '';
+	App.util.executeCmdSys("/wares/queryWaresTypePage.action", {
+		pId:waresTypes1,
+		grade:'2'
+	},"post").success(function(result) {
+		$("#waresTypes2").empty();
+		$("#waresTypes2").append('<option value="0" select="selected">下拉选择类别</option>')
+		$.each(result.waresTypeRespList, function(){
+			if(this.Name1=='语言类'){
+				var info='';
+				App.util.executeCmdSys("/wares/queryWaresTypePage.action", {
+					pId:this.waresTypeId,
+					grade:'3'
+				},"post").success(function(result) {
+					$.each(result.waresTypeRespList, function(){
+						info+=this.Name1+",";
+					});
+				});
+				if(info!=''){
+					info=info.substring(0, info.length-1);
+				}
+				$("#waresTypes2").append("<option  value='"+this.waresTypeId+"'>"+this.Name1+"("+info+")"+"</option>");
+			}else{
+				$("#waresTypes2").append("<option  value='"+this.waresTypeId+"'>"+this.Name1+"</option>");
+			}
+		});
+	});
+	getMakeOrderByPage(1);
+}
+
+$(function() {
+	//加载横幅菜单
+	banner();
+	//加载权限菜单
+	rightMenu(5);
+	
+	//加载列表
+ 	getMakeOrderByPage(pageNum);
+	//加载父级商品类别
+	App.util.executeCmdSys("/wares/queryWaresTypePage.action", {
+		grade:'1'
+	},"post").success(function(result) {
+		$.each(result.waresTypeRespList, function(){
+			$("#waresTypes1").append("<option  value='"+this.waresTypeId+"'>"+this.Name1+"</option>");
+		});
+	});
+});
+</script>
+</body>
+</html>

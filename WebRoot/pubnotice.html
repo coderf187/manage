@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>物管系统</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+<link rel="stylesheet" href="css/uniform.css" />
+<link rel="stylesheet" href="css/select2.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'> -->
+<script src="normal/js/jquery-1.10.2.min.js" /></script>
+<script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="normal/js/menu.js"></script>
+</head>
+<body>
+<div class="header" id="banner">
+    
+
+</div>
+
+<div id="sidebar">
+
+</div>
+<div id="content" class="mt90">
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span6">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+              <h5>发布公告</h5>
+            </div>
+            <div class="widget-content nopadding">
+              <form action="#" method="get" class="form-horizontal" id="noticeForm">
+              	<div class="control-group">
+                  <label class="control-label">标题</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="公告标题" id="pub_title" rule="name:'公告标题', notnull:true">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">发布内容</label>
+                  <div class="controls">
+                    <textarea class="span11 validate" id="pub_content" rule="name:'发布内容', notnull:true"></textarea>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">小区名字</label>
+                  <div class="controls">
+                    <select id="residential" class="validate" rule="name:'小区名字', notnull:true">
+                      
+                    </select>
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <a href="#" class="btn btn-success" onclick="addPubnotice()">添加公告</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    </div>
+
+  </div>
+</div>
+<!--Footer-part-->
+<div class="row-fluid">
+  <div id="footer" class="span12">
+  服务热线：028-25855545<br/>
+  Copyright © 2014 XXXX 版权所有
+  </div>
+</div>
+<!--end-Footer-part-->
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/jquery.dataTables.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/matrix.tables.js"></script>
+<script>
+//发布公告
+function addPubnotice(){
+	var pub_title = $("#pub_title").val();
+	var pub_content = $("#pub_content").val();
+	var residential = $("#residential").val();
+	if(App.util.validate($("#noticeForm"))) {
+		App.util.executeCmd("/manage/addPublicNotice.action", {
+			residentialId:residential,
+			tittle:pub_title,
+			content1:pub_content,
+			type:'1'
+		},"post").success(function(result) {
+			if(result.code=='succ001'){
+				window.wxc.xcConfirm('发布成功', window.wxc.xcConfirm.typeEnum.success,{onOk:function(){window.location.href = "revnotice.html";}});
+			}
+		});
+	}
+}
+
+$(function() {
+	//加载横幅菜单
+	banner();
+	//加载权限菜单
+	rightMenu(6);
+	
+	$("#residential").append('<option  select="selected" value="">下拉选择小区</option>');
+	App.util.executeCmd("/user/queryResidentialPage.action", {},"post").success(function(result) {
+		$.each(result.residentialRespList, function(){
+			$("#residential").append("<option  value='"+this.residentialId+"'>"+this.name+"</option>");
+		});
+		
+	});
+});
+</script>
+</body>
+</html>

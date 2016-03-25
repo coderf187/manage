@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>我的订单列表</title>
+    <link href="../css/commom.css" rel="stylesheet" />
+    <!--<link href="../css/normal.css" rel="stylesheet" />-->
+    <script src="../js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+  <div id="orderlist" class="loadmore" style="min-height: 485px;"> 
+   <ul id="" class="clearfix  widper100">
+    <li class="bgblock mtonerem widper100" id="li_order_20160127055152519" onclick="showDetail('20160127055152519');">
+     <div class=" bbdotted g-line wb">
+      <div class="indentb widper70 g-font p14">
+       订单号：20160127055152519
+      </div>
+      <div class="widper30 tcenter y-font  p14">
+       <span id="span_status_20160127055152519">待支付</span>
+      </div>
+     </div>
+     <ul>
+      <li class="wb">
+       <div class="orderimg">
+        <img src="http://glv3.edu-yun.com/upload_product_img/1/thumbnail_11666435708.png" alt="校徽" />
+       </div>
+       <div class="mtonerem">
+        <div class="c-line p15">
+         校徽
+        </div>
+        <div class="p14 g-font mt2">
+         单价：￥80
+        </div>
+        <div class="p14 g-font">
+         数量：1
+        </div>
+        <div class="p14 g-font">
+         总价：￥80
+        </div>
+       </div></li>
+     </ul>
+     <div class="mt10 tright  btdotted">
+      <button class="tinybtn btngray p15" type="button" id="btn_cancel_20160127055152519" onclick="event.stopPropagation();cancelOrder('20160127055152519', 0, 1, 0)">取消订单</button>
+      <button class="tinybtn btnyellow " type="button" id="btn_pay_20160127055152519" onclick="event.stopPropagation();payOrder('20160127055152519', 5)">去支付</button>
+     </div></li>
+    <li class="bgblock mtonerem widper100" id="li_order_20160127051504144" onclick="showDetail('20160127051504144');">
+     <div class=" bbdotted g-line wb">
+      <div class="indentb widper70 g-font p14">
+       订单号：20160127051504144
+      </div>
+      <div class="widper30 tcenter y-font  p14">
+       <span id="span_status_20160127051504144">待支付</span>
+      </div>
+     </div>
+     <ul>
+      <li class="wb">
+       <div class="orderimg">
+        <img src="http://glv3.edu-yun.com/upload_product_img/1/thumbnail_11666435708.png" alt="校徽" />
+       </div>
+       <div class="mtonerem">
+        <div class="c-line p15">
+         校徽
+        </div>
+        <div class="p14 g-font mt2">
+         单价：￥80
+        </div>
+        <div class="p14 g-font">
+         数量：1
+        </div>
+        <div class="p14 g-font">
+         总价：￥80
+        </div>
+       </div></li>
+     </ul>
+     <div class="mt10 tright  btdotted">
+      <button class="tinybtn btngray p15" type="button" id="btn_cancel_20160127051504144" onclick="event.stopPropagation();cancelOrder('20160127051504144', 0, 1, 0)">取消订单</button>
+      <button class="tinybtn btnyellow " type="button" id="btn_pay_20160127051504144" onclick="event.stopPropagation();payOrder('20160127051504144', 5)">去支付</button>
+     </div></li>
+    <li class="bgblock mtonerem widper100" id="li_order_20160122093928968" onclick="showDetail('20160122093928968');">
+     <div class=" bbdotted g-line wb">
+      <div class="indentb widper70 g-font p14">
+       订单号：20160122093928968
+      </div>
+      <div class="widper30 tcenter y-font  p14">
+       <span id="span_status_20160122093928968">订单失效</span>
+      </div>
+     </div>
+     <ul>
+      <li class="wb">
+       <div class="orderimg">
+        <img src="http://glv3.edu-yun.com/upload_product_img/1/thumbnail_1426897674.png" alt="你好" />
+       </div>
+       <div class="mtonerem">
+        <div class="c-line p15">
+         你好
+        </div>
+        <div class="p14 g-font mt2">
+         单价：￥0.85
+        </div>
+        <div class="p14 g-font">
+         数量：1
+        </div>
+        <div class="p14 g-font">
+         总价：￥0.85
+        </div>
+       </div></li>
+     </ul></li>
+    <li class="bgblock mtonerem widper100" id="li_order_201512231548125237" onclick="showDetail('201512231548125237');">
+     <div class=" bbdotted g-line wb">
+      <div class="indentb widper70 g-font p14">
+       订单号：201512231548125237
+      </div>
+      <div class="widper30 tcenter y-font  p14">
+       <span id="span_status_201512231548125237">订单失效</span>
+      </div>
+     </div>
+     <ul>
+      <li class="wb">
+       <div class="orderimg">
+        <img src="http://glv3.edu-yun.com/upload_product_img/1/thumbnail_1-920064660.jpg" alt="智能手表(移动/联通版)" />
+       </div>
+       <div class="mtonerem">
+        <div class="c-line p15">
+         智能手表(移动/联通版)
+        </div>
+        <div class="p14 g-font mt2">
+         单价：￥598
+        </div>
+        <div class="p14 g-font">
+         数量：1
+        </div>
+        <div class="p14 g-font">
+         总价：
+        </div>
+       </div></li>
+     </ul></li>
+    <li class="bgblock mtonerem widper100" id="li_order_201512231547216673" onclick="showDetail('201512231547216673');">
+     <div class=" bbdotted g-line wb">
+      <div class="indentb widper70 g-font p14">
+       订单号：201512231547216673
+      </div>
+      <div class="widper30 tcenter y-font  p14">
+       <span id="span_status_201512231547216673">订单失效</span>
+      </div>
+     </div>
+     <ul>
+      <li class="wb">
+       <div class="orderimg">
+        <img src="http://glv3.edu-yun.com/upload_product_img/1/thumbnail_1-281701297.jpg" alt="智能学生证（移动/联通版）" />
+       </div>
+       <div class="mtonerem">
+        <div class="c-line p15">
+         智能学生证（移动/联通版）
+        </div>
+        <div class="p14 g-font mt2">
+         单价：￥299
+        </div>
+        <div class="p14 g-font">
+         数量：1
+        </div>
+        <div class="p14 g-font">
+         总价：
+        </div>
+        <div>
+         版本：移动/联通
+        </div>
+       </div></li>
+     </ul></li>
+   </ul> 
+   <div class="loading" style="display: none;">
+    加载中...
+   </div> 
+  </div>
+</body>
+</html>

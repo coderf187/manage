@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>物管系统</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/uniform.css" />
+<link rel="stylesheet" href="css/select2.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'> -->
+<script src="normal/js/jquery-1.10.2.min.js" /></script>
+<script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="normal/js/menu.js"></script>
+</head>
+<body>
+<div class="header" id="banner">
+
+</div>
+
+
+<div id="sidebar">
+
+</div>
+<div id="content" class="mt90">
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>公告</h5>
+          </div>
+          <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>小区名字</th>
+                  <th>公告内容</th>
+                </tr>
+              </thead>
+              <tbody id="pubnotice_data">
+               
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
+       </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--Footer-part-->
+<div class="row-fluid">
+  <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in/">Themedesigner.in</a> </div>
+</div>
+<!--end-Footer-part-->
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/jquery.dataTables.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/matrix.tables.js"></script>
+<script>
+var pageNum = 1;
+var pageIndex = 1;
+function getPubnoticeByPage(pageNum){
+	if(pageNum < 1){
+		window.wxc.xcConfirm('已经是第一页了!', window.wxc.xcConfirm.typeEnum.info);
+	}else if(pageNum > pageIndex){
+		window.wxc.xcConfirm('已经是最后一页了!', window.wxc.xcConfirm.typeEnum.info);
+	}else{
+		var html='';
+		var temp=App.util.executeCmdSys("/manage/queryPublicNoticePage.action", {
+			pageNum: pageNum,
+			pageSize:'10',
+			type:'1'
+		},"get").success(function(result) {
+  			$(result.publicNoticeRespList).each(function(){
+  				var residential='';
+ 				App.util.executeCmdSys("/user/queryResidentialById.action", {
+ 					residentialId: this.residentialId
+ 					},"get").success(function(res) {
+ 						residential=res;
+ 				});
+				html +=		'<tr class="odd gradeX">'
+									+'<td>'+residential.name+'</td>'
+									+'<td>'+this.content1+'</td>'
+							+'</tr>'
+								
+			});
+			$("#pubnotice_data").html(html);
+			pageIndex = Math.ceil(result.totalNum/10); 
+			if(result.totalNum == 0){
+				pageIndex = 1;
+			}
+			App.pageBar(result.pageNum,pageIndex,'getPubnoticeByPage');  
+		});
+	}
+}
+
+function deletePublicNotice(publicNoticeId){
+	App.util.executeCmdSys("/manage/deletePublicNotice.action", {
+			publicNoticeId: publicNoticeId
+			},"get").success(function(result) {
+				if(result.code=='succ001'){
+					window.wxc.xcConfirm('撤销成功', window.wxc.xcConfirm.typeEnum.success,{onOk:function(){getPubnoticeByPage(1);}});
+				}
+		});
+}
+
+$(function() {
+	//获取公告列表
+	getPubnoticeByPage(pageNum);
+	//加载横幅菜单
+	banner();
+	//加载权限菜单
+	rightMenu(0);
+});
+</script>
+</body>
+</html>

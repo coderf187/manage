@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta content="telephone=no" name="format-detection" />
+    <link href="../css/commom.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../css/xcConfirm.css"/>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../../css/uniform.css" />
+    <script src="../../normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../normal/js/normal.js" /></script>
+ 	<script src="../../normal/js/common.js" /></script>
+    <title>产品列表</title>
+    
+</head>
+<body>
+  <div id="productlist2" class="mtonerem hide product-content" style="display: block;"> 
+   <ul id="productList_data" class="clearfix loadmore  shopul widper100" style="min-height: 453px; height: 453px;">
+   
+   </ul> 
+   <div class="loading" style="display: none;">
+    加载中...
+   </div> 
+  </div>
+</body>
+<script type="text/javascript">
+	
+	function getProductByPage(){
+		var html='';
+		var temp=App.util.executeCmdSys("/wares/querySellWaresPage.action", {
+			type1:'4'
+		},"get").success(function(result) {
+  			$(result.waresRespList).each(function(){
+  				var image=App.util.isNullorEmpty(this.Images)?'../../normal/images/nothing.jpg':this.Images.split(',')[0];
+  		     
+  				html+='<li class="widper49">'
+	  					+'<a href="productdetail.html?waresId='+this.waresId+'">'
+	  						+'<div class="imgdiv">'
+	  							+'<img src="'+ image +'" alt="'+ this.Name1 +'" />'
+							+'</div>'
+							+'<div class="mt2 palr nowrap mt2 p14 ">'
+								+this.Name1
+							+'</div>'
+							+'<div class=" indent">'
+	  			       		+  '<span class="y-font p12 ">￥</span>' 
+	  			        	+  '<span class="p14 y-font bold ">'+ this.Price +'</span>'
+	  			        	+  '<span style="text-decoration:line-through;" class="g-font mronerem p12 mlp6">￥ '+ this.Price +'</span>'
+	  			       		 +'</div>'
+	  			        +'</a>'
+					+'</li>'
+			});
+			$("#productList_data").html(html);
+		});
+	}
+
+	$(function() {
+		//获取商品列表
+		getProductByPage();
+	});
+	</script>
+
+</html>

@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>产品详细</title>
+    <link href="../css/commom.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../css/xcConfirm.css"/>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../../css/uniform.css" />
+    <script src="../../normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../normal/js/normal.js" /></script>
+ 	<script src="../../normal/js/common.js" /></script>
+</head>
+<body class="pabthreerem">
+  <div id="pdetail"> 
+   <div class="pabonerem bgwhite ">
+    <div class="widper100 bb1">
+     <div id="image" class="biggiftimg">
+      
+     </div>
+    </div>
+    <div class="wb mtonerem palr">
+     <div class="widper60 bold  " id="Name1">
+     
+     </div>
+     <div class="widper40 tcenter ">
+      <span class="y-font">￥</span>
+      <span class=" y-font bold" id="Price">  </span>
+     </div>
+    </div>
+    <div class="mtonerem palr">
+            产品描述
+      <div class="g-font c-line detail" id="description1">
+      </div>
+    </div>
+    <div class="mtonerem palr">
+     产品详情
+     <div class="g-font c-line detail ">
+      <p id="imageDetails">
+     
+      </p> 
+     </div>
+    </div>
+   </div>
+   <div class="tright bottom">
+    <a href="#" onclick="inputCart()">
+       <input class="tinybtn btnwhite " type="button"  value="加入购物车" />
+     </a>
+    <a href="#" onclick="buyNow()">
+       <input class="tinybtn btnwhite " type="button"  value="立即购买" />
+     </a>
+   </div>
+  </div>
+</body>
+<script type="text/javascript">
+var waresId = '';
+$(function(){
+	  waresId=App.util.getUrlParam('waresId');
+	  if(App.util.isNullorEmpty(waresId)){
+		  window.wxc.xcConfirm('waresId不能为空', window.wxc.xcConfirm.typeEnum.warning);
+	  }else{
+		  var html='';
+		  var wares='';
+		  App.util.executeCmdSys("/wares/queryWaresById.action", {
+			waresId: waresId
+			},"get").success(function(result) {
+				if(result.code=='succ001'){
+					wares=result;
+				}
+			});
+		  $('#Name1').text(wares.Name1);
+		  $('#Price').text(wares.Price+wares.Unit);
+		  $('#description1').text(wares.description1);
+		
+		  var image='';
+		  var imageDetails = '';
+         	if(App.util.isNullorEmpty(wares.Images)){
+         		image= '<img src="../../normal/images/nothing.jpg" alt="产品详细图片" />';
+         	}else{
+         		var imageArray=wares.Images.split(',');
+         		image = '<img src="'+ imageArray[0] +'" alt="产品详细图片" />';
+         		for(var i=1;i<imageArray.length;i++){
+         			imageDetails+= '<img alt="" src="'+ imageArray[i] +'" style="width: 750px; height: 394px;" />';
+         		}
+         	}
+         	$('#image').html(image);
+         	$('#imageDetails').html(imageDetails);
+	  }
+})
+
+function buyNow(){
+	//检查是否登陆，未登录跳转登录页面
+	window.location.href = "createorder.html?waresId="+waresId;
+}
+</script> 
+</html>

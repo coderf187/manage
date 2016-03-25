@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>物管系统</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/uniform.css" />
+<link rel="stylesheet" href="css/select2.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'> -->
+<script src="normal/js/jquery-1.10.2.min.js" /></script>
+<script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="normal/js/menu.js"></script>
+</head>
+<body>
+<div class="header" id="banner">
+
+</div>
+
+
+<div id="sidebar">
+
+</div>
+<div id="content" class="mt90">
+  <div class="container-fluid">
+    <hr>
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>更改家教</h5>
+          </div>
+          <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>老师姓名</th>
+                  <th>课程</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="modhometeacher_data">
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
+       </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--Footer-part-->
+<div class="row-fluid">
+  <div id="footer" class="span12">
+  服务热线：028-25855545<br/>
+  Copyright © 2014 XXXX 版权所有
+  </div>
+</div>
+<!--end-Footer-part-->
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/jquery.dataTables.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/matrix.tables.js"></script>
+<script>
+var pageNum = 1;
+var pageIndex = 1;
+function getModHomeTeacherByPage(pageNum){
+	if(pageNum < 1){
+		window.wxc.xcConfirm('已经是第一页了!', window.wxc.xcConfirm.typeEnum.info);
+	}else if(pageNum > pageIndex){
+		window.wxc.xcConfirm('已经是最后一页了!', window.wxc.xcConfirm.typeEnum.info);
+	}else{
+		var html='';
+		var temp=App.util.executeCmdSys("/wares/queryWaresUserInfoPage.action", {
+			pageNum: pageNum,
+			pageSize:'10',
+			type1:'1'
+		},"get").success(function(result) {
+  			$(result.waresUserInfoRespList).each(function(){
+				html +=		'<tr class="odd gradeX">'
+									+'<td>'+((this.userInfo==null)?'无':this.userInfo.name)+'</td>'
+									+'<td>'+this.waresResp.Name1+'</td>'
+									+'<td>'
+									+	'<button type="button" class="btn btn-success" onclick="window.location.href=\'pubhometeacher.html?waresId='+this.waresResp.waresId+'\'">详情/修改</button>'
+									+	'<button class="btn btn-warning" onclick="deleteWares('+this.waresResp.waresId+')">删除</button>'
+									+'</td>'
+							+'</tr>'
+								
+			});
+			$("#modhometeacher_data").html(html);
+			pageIndex = Math.ceil(result.totalNum/10); 
+			if(result.totalNum == 0){
+				pageIndex = 1;
+			}
+			App.pageBar(result.pageNum,pageIndex,'getModHomeTeacherByPage');  
+		});
+	}
+}
+
+function deleteWares(waresId){
+	App.util.executeCmd("/wares/deleteWares.action", {
+		waresId: waresId
+		},"get").success(function(result) {
+			window.wxc.xcConfirm(result.codeDescription, window.wxc.xcConfirm.typeEnum.success,{onOk:function(){getModHomeTeacherByPage(1);}});
+			
+			});
+	}
+
+$(function() {
+	//加载横幅菜单
+	banner();
+	//加载权限菜单
+	rightMenu(9);
+	
+	//获取家教列表
+	getModHomeTeacherByPage(pageNum);
+});
+</script>
+</body>
+</html>

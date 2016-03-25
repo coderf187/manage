@@ -1,0 +1,70 @@
+<!DOCTYPE>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport" />
+<meta name="HandheldFriendly" content="true" />
+<link href="css/lottery.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/Rotate.js"></script>
+<style>
+
+</style>
+</head>
+<body>
+<section class="lotteryMain">
+    <div class="lotteryBg">
+        <img id="run" src="images/start.png" />
+        <input id="btn_run" type="button" value="" />
+    </div>
+    <div id="results">
+     
+    </div>
+    <div class="pwhite">
+    	活动规则:抽到奖品后请拨打客服热线
+    </div>
+</section>  
+<script>
+$(function(){ 
+     $("#btn_run").click(function(){
+        $("#btn_run").attr('disabled',true).css("cursor","default"); 
+        lottery(); 
+    });
+}); 
+function lottery(){ 
+	var arr = [1,2,3,4,5,6];
+	var index = Math.floor((Math.random()*arr.length));
+	$("#run").rotate({ 
+		duration:3000, //转动时间 
+		angle: 0, //默认角度
+		animateTo:360*5+index*60, //转动角度 
+		easing: $.easing.easeOutSine, 
+		callback: function(){ 
+			$("#btn_run").attr('disabled',false).css("cursor","pointer"); 
+			switch(index){
+				case 1:
+					window.wxc.xcConfirm("20元优惠券", window.wxc.xcConfirm.typeEnum.info);
+				break;
+				case 2:
+					window.wxc.xcConfirm("10元话费", window.wxc.xcConfirm.typeEnum.info);
+				break;
+				case 3:
+					window.wxc.xcConfirm("10元Q币", window.wxc.xcConfirm.typeEnum.info);
+				break;
+				case 4:
+					window.wxc.xcConfirm("iphone5s", window.wxc.xcConfirm.typeEnum.info);
+				break;
+				case 5:
+					window.wxc.xcConfirm("5元优惠券", window.wxc.xcConfirm.typeEnum.info);
+				break;
+				case 6:
+					window.wxc.xcConfirm("10元优惠券", window.wxc.xcConfirm.typeEnum.info);
+				break;
+			}
+		} 
+	});
+};
+     
+</script>  
+</body>
+</html>

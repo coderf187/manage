@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>物管系统</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+<link rel="stylesheet" href="css/uniform.css" />
+<link rel="stylesheet" href="css/select2.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<script src="normal/js/jquery-1.10.2.min.js" /></script>
+<script src="normal/js/normal.js" /></script>
+ <script src="normal/js/common.js" /></script>
+<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="normal/js/menu.js"></script>
+<script src="avater/swfobject.js" /></script>
+<script src="avater/fullAvatarEditor.js" /></script>
+</head>
+<body>
+<div class="header" id="banner">
+    
+</div>
+
+<div id="sidebar">
+
+</div>
+<div id="content" class="mt90">
+  <div class="container-fluid">
+    <hr>
+    <div class="row-fluid">
+      <div class="span6">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+              <h5>发布商品</h5>
+            </div>
+            <div class="widget-content nopadding">
+              <form action="#" method="get" class="form-horizontal" id="form">
+             	 <div class="control-group">
+                    <label class="control-label">商品类别</label>
+                    <div class="controls">
+                    	<div class="select2-container" id="s2id_autogen1"> 
+	                     	<select id="Type2" class="validate" rule="name:'商品类别', notnull:true">
+	                         
+	                        </select>
+	                    </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label">商品名称</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="请输入商品名称" id="Name1" rule="name:'商品名称', notnull:true">
+                  </div>
+                </div>
+                <div class="control-group">
+                <label class="control-label">商品价格(元)</label>
+                  <div class="controls">
+                    <input type="text" class="span11 validate" placeholder="请输入商品价格" id="Price" rule="name:'商品价格', amount:true, notnull:true">
+                  </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">商品库存</label>
+                    <div class="controls">
+                        <input type="text" class="span11 validate" placeholder="请输入商品库存" id="Inventory" rule="name:'商品价格', number:true, notnull:true">
+                   </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">商品描述</label>
+                    <div class="controls">
+                        <input type="text" class="span11" placeholder="请输入商品描述" id="description1">
+                   </div>
+                </div>
+                 <div class="control-group">
+                  <label class="control-label">上传图片</label>
+                  <div class="controls">
+                    <div id="previewDiv1">
+                      <!-- <img id="preview1" src="normal/images/default.png"> -->
+                    </div>
+                     <input type="file"   name="file" id="doc1" style="width:150px;" onchange="javascript:setImagePreview('doc1' ,'preview1' ,'localImag1');">
+                     <input type="button" class="btn btn-success" value="删除" onclick="javascript:deleteFile('preview1','doc1',0)">
+	                </div>
+	                <div class="controls">
+	                    <div id="previewDiv2">
+	                     <!--  <img id="preview2" src="normal/images/default.png" > -->
+	                    </div>
+	                     <input type="file" name="file" id="doc2" style="width:150px;" onchange="javascript:setImagePreview('doc2' ,'preview2' ,'localImag2');">
+	                     <input type="button" class="btn btn-success" value="删除" onclick="javascript:deleteFile('preview2','doc2',1)">
+	                </div>
+	                <div class="controls">
+	                    <div id="previewDiv3">
+	                      <!-- <img id="preview3" src="normal/images/default.png"  > -->
+	                    </div>
+	                     <input type="file" name="file" id="doc3" style="width:150px;" onchange="javascript:setImagePreview('doc3' ,'preview3' ,'localImag3');">
+	                     <input type="button" class="btn btn-success" value="删除" onclick="javascript:deleteFile('preview3','doc3',2)">
+	                </div>
+	                <div class="controls">
+	                    <div id="previewDiv4">
+	                     <!--  <img id="preview4" src="normal/images/default.png"  > -->
+	                    </div>
+	                     <input type="file" name="file" id="doc4" style="width:150px;" onchange="javascript:setImagePreview('doc4' ,'preview4' ,'localImag4');">
+	                     <input type="button" class="btn btn-success" value="删除" onclick="javascript:deleteFile('preview4','doc4',3)">
+	                </div>
+	                <div class="controls">
+	                    <div id="previewDiv5">
+	                    <!--   <img id="preview5" src="normal/images/default.png"  > -->
+	                    </div>
+	                     <input type="file" name="file" id="doc5" style="width:150px;"  onchange="javascript:setImagePreview('doc5' ,'preview5' ,'localImag5');">
+	                     <input type="button" class="btn btn-success" value="删除" onclick="javascript:deleteFile('preview5','doc5',4)">
+	                </div>
+               </div>
+                <div class="form-actions">
+                  <button type="button" class="btn btn-success" onclick="upladFile()">发布信息</button>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--Footer-part-->
+<div class="row-fluid">
+  <div id="footer" class="span12">
+  服务热线：028-25855545<br/>
+  Copyright © 2014 XXXX 版权所有
+  </div>
+</div>
+<div class="overlay"></div>
+<!--end-Footer-part-->
+<script type="text/javascript">
+var url = '';
+var urlArray = [];
+
+
+$(function(){
+	//加载横幅菜单
+	banner();
+	//加载权限菜单
+	rightMenu(18);
+	
+	//加载商品列表
+	  App.util.executeCmdSys("/wares/queryWaresTypePage.action", {grade:1,pId:-1},"post").success(function(result) {
+			$.each(result.waresTypeRespList, function(){
+				$("#Type2").append("<option value='"+this.waresTypeId+"'>"+this.Name1+"</option>");
+			});
+		});
+	  
+	//用于回显
+	var waresId=App.util.getUrlParam('waresId');
+	if(!(waresId==null || waresId=='')){
+		/* App.util.executeCmdSys("/wares/queryWaresById.action", {
+			waresId: waresId
+			},"get").success(function(result) {
+				if(result.code=='succ001'){
+					var houseInfo='';
+					App.util.executeCmdSys("/user/queryHouseInfoByWaresId.action",{
+						waresId:result.waresId
+						},"get").success(function(res){
+							houseInfo=res;
+						});
+					url = result.Images;
+					
+					$("#hall").val(houseInfo.hall);  // 厅室
+					$("#residName").val(houseInfo.residName);  // 小区名字
+					$("#cellNum").val(houseInfo.cellNum);  // 楼层
+					$("#direction").val(houseInfo.direction);  //朝向
+					$("#property").val(houseInfo.property);  //产权
+					$("#buildYear").val(houseInfo.buildYear);  //修建年代
+					$("#renovation").val(houseInfo.renovation);  //装修
+					$("#address").val(houseInfo.address);  //地址
+					$("#contactPerson").val(houseInfo.contactPerson);  //联系人
+					$("#contactPhone").val(houseInfo.contactPhone); //联系电话
+					$("#field1").val(houseInfo.field1); //面积
+					
+					$("#Price").val(result.Price);//单价
+					$("#Name1").val(result.Name1);//标题
+					if(!App.util.isNullorEmpty(url)){
+						var imageArray=url.split(',');
+		          		for(var i=0;i<imageArray.length;i++){
+		          			var imgObjPreview=$("input[name='file']");
+		          			imgObjPreview[i]
+		          		}
+					}
+					}
+				}); */
+		}
+	for(var i=0;i<5;i++){
+		var imgPreviewId = "preview" + (i+1);
+		if(!urlArray[i]){
+			urlArray[i] = 'normal/images/default.png';
+		}
+		var imgHtml = '<img id="'+imgPreviewId+'" src="'+urlArray[i]+'">';
+		var previewDivId = "previewDiv" + (i+1);
+		$("#"+previewDivId).html(imgHtml);
+	}
+});
+
+function addWares(){
+	//获取表单数据
+	//清空url
+	url = '';
+  	//将urlArray转成url
+  	for(var i=0; i<urlArray.length;i++){
+  		if(urlArray[i] != '' && urlArray[i] != 'normal/images/default.png'){
+  			url += urlArray[i] +',';
+  		}
+  	}
+  	if(url){
+		url = url.substring(0,url.length-1);
+	}
+	
+	var Name1 = $("#Name1").val()//名称
+	var Price = $("#Price").val();//价格
+	var Unit = "元"; //计量单位
+	var description1 = $("#description1").val();//描述
+	var Type1 = "4";
+	var Type2 = $("#Type2").val();
+	var waresId=App.util.getUrlParam('waresId');
+	if(waresId==null ||waresId==''|| waresId==undefined){
+		App.util.executeCmdSys("/wares/addWares.action", {
+			sellerId:currentUser.userId,
+	  		//单价
+	  	  	Price:Price,
+	  	  	Unit:Unit,
+	  	  	//标题
+	  	  	Name1:Name1,
+	  	  	Images:url,
+	  	  	//描述
+	  	  	description1:description1,
+	  	  	Type1:Type1,
+	  	  	Type2:Type2
+	  	  	},"post").success(function(result) {
+	  	  		if(result.code=='succ001'){
+	  	  			window.wxc.xcConfirm("商品发布成功", window.wxc.xcConfirm.typeEnum.success,{onOk:function(){location.reload(true);}});
+	  				}else{
+	  					window.wxc.xcConfirm("商品发布成功", window.wxc.xcConfirm.typeEnum.error);
+	  					}
+	  	  		}); 
+		}else{
+			//修改操作
+			}
+	}
+
+function deleteFile(pimg,fileId,index){
+	deleteImage(pimg,fileId);
+	if(urlArray&&urlArray[index]){
+		urlArray[index]='';
+	}	 
+}
+
+function upladFile() {
+	if(App.util.validate($("#form"))){
+		//上传文件
+		var urlJson={};
+		//记录有文件的下标
+	    var fileIndex = [false,false,false,false,false];
+	    var fileObj1 = document.getElementById("doc1").files[0]; // 获取文件对象
+	    if(fileObj1){
+	    	fileIndex[0] = true;
+	    }
+	    var fileObj2 = document.getElementById("doc2").files[0]; // 获取文件对象
+	    if(fileObj2){
+	    	fileIndex[1] = true;
+	    }
+	    var fileObj3 = document.getElementById("doc3").files[0]; // 获取文件对象
+	    if(fileObj3){
+	    	fileIndex[2] = true;
+	    }
+	    var fileObj4 = document.getElementById("doc4").files[0]; // 获取文件对象
+	    if(fileObj4){
+	    	fileIndex[3] = true;
+	    }
+	    var fileObj5 = document.getElementById("doc5").files[0]; // 获取文件对象
+	    if(fileObj5){
+	    	fileIndex[4] = true;
+	    }
+	    var FileController = "/manage/fileUpload";                    // 接收上传文件的后台地址 
+	    // FormData 对象
+	    var form = new FormData();
+	    form.append("file1", fileObj1);                           // 文件对象
+	    form.append("file2", fileObj2);                           // 文件对象
+	    form.append("file3", fileObj3);                           // 文件对象
+	    form.append("file4", fileObj4);                           // 文件对象
+	    form.append("file5", fileObj5);                           // 文件对象
+	    
+	    
+	    // XMLHttpRequest 对象
+	    var xhr = new XMLHttpRequest();
+	    xhr.open("post", FileController, false);
+	    xhr.onreadystatechange = function(){
+	    	if (xhr.readyState==4){
+	    		if (xhr.status==200){  
+	    			var result = xhr.responseText; 
+	    			if(result == "false"){
+	    				window.wxc.xcConfirm("上传图片网络连接超时，请检查网络情况！", window.wxc.xcConfirm.typeEnum.error,{onOk:function(){location.reload(true);}});
+	    				return;
+	    			}
+	    			urlJson = eval("(" + result + ")");
+	    			//图片url的下标位置，被取走一个再增加
+	    			var urlJsonIndex = 0;
+	    			for(var i=0; i<fileIndex.length;i++){
+	    				if(fileIndex[i]==true){
+	    					if(urlJson[urlJsonIndex].status != "4"){
+		    		    		window.wxc.xcConfirm(urlJson[urlJsonIndex].statusdesc, window.wxc.xcConfirm.typeEnum.error,{onOk:function(){location.reload(true);}});
+		    		    	}else{
+		    		    		urlArray[i]=urlJson[urlJsonIndex].url;
+		    		    		urlJsonIndex++;
+		    		    	}
+	    				}
+	    			}
+	    			
+	    			addWares();
+	            }  
+	    		xhr = null;
+	        }else{
+	        	window.wxc.xcConfirm("图片上传失败，请刷新页面重试!", window.wxc.xcConfirm.typeEnum.error,{onOk:function(){location.reload(true);}});
+	        }  
+	    }  
+	    xhr.send(form);
+	}
+}
+
+</script>
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<!-- <script src="js/select2.min.js"></script>  -->
+<script src="js/jquery.dataTables.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<!-- <script src="js/matrix.tables.js"></script> -->
+
+</body>
+</html>

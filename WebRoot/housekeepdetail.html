@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+	<script src="normal/js/jquery-1.10.2.min.js" /></script>
+	<script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+	<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="normal/js/menu.js"></script>
+</head>
+<body>
+	<div class="header" id="banner">
+
+	</div>
+
+	<div class="secontent mt100">
+		<div class="centerblock">
+			<div class="fleft wid200 acenter">
+				<a href="#" id="headerphoto">
+					
+				</a>
+				<div class="star">
+					<img src="normal/images/star.png">
+					<img src="normal/images/star.png">
+					<img src="normal/images/star.png">
+					<img src="normal/images/graystar.png">
+					<img src="normal/images/graystar.png">										
+				</div>
+			</div>
+			<div class="fleft ">
+				<span class="username" id="name"></span><br/>
+				<span class="60" id="price"></span><br/>
+				<span id="Type2"></span><br/>
+				<div class="mt10">
+					<a  class="order" href="#">预约</a>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="centerblock mt60">
+			<div class="smallblock">
+				<img src="normal/images/inform.png">
+				<span class="ml10">详细信息</span>
+				
+			</div>
+			<span class="inline">电话号码</span><span class="ml30 yellow" id="mobile"></span><br/>	
+			<span class="inline">类型</span><span class="ml30 " id="type2"></span><br/>			
+			<span class="inline">民族</span><span class="ml30 " id="nation"></span><br/>	
+			<span class="inline">年龄</span><span class="ml30 " id="age"></span><br/>	
+			<span class="inline">当前城市</span><span class="ml30 " id="city"></span><br/>	
+			<span class="inline">最高学历</span><span class="ml30 " id="education"></span><br/>	
+			<span class="inline">目前状态</span><span class="ml30 " id="status"></span><br/>
+		</div>
+		<div class="centerblock mt60">
+			<div class="smallblock">
+				<img src="normal/images/inform.png">
+				<span class="ml10">用户评价</span>
+			</div>
+			<div class="comment">
+				<ul id="WaresAppraise_data">
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<div>服务热线：028-25855545</div>
+		<div>Copyright © 2014 XXXX 版权所有</div>
+	</div> 
+		<script type="text/javascript">
+	$(function(){
+		//加载横幅菜单
+		banner(1);
+		
+		  var waresId=App.util.getUrlParam('housekeepid');
+		  if(!(waresId==null || waresId==''||waresId==undefined)){
+			  App.util.executeCmdSys("/wares/queryWaresById.action", {
+					waresId: waresId
+					},"get").success(function(result) {
+						if(result.code=='succ001'){
+							var userInfo='';
+							App.util.executeCmdSys("/wares/queryUserInfoByWaresId.action",{
+								waresId:result.waresId
+							},"get").success(function(res){
+								userInfo=res;
+							})
+							var waresTypeId = result.Type2;
+							var typeName = '';
+							App.util.executeCmdSys("/wares/queryWaresTypePage.action", {grade:2,pId:2,waresTypeId:waresTypeId},"post").success(function(type) {
+								$.each(type.waresTypeRespList, function(){
+									if(this.waresTypeId == waresTypeId){
+										typeName = this.Name1;
+										}
+									});
+								});
+							  //姓名
+							  $('#name').text(userInfo.name==undefined?'无姓名':userInfo.name);
+							  //服务费用
+							  $('#price').text("服务费用："+result.Price+result.Unit);
+							  //服务类型
+							  $('#Type2').text("服务类型："+typeName);
+							  //电话
+							  $('#mobile').text(userInfo.mobile==undefined?'':userInfo.mobile);
+							  //类型
+							  $('#type2').text(typeName);
+							  //民族
+							  $('#nation').text(userInfo.nation==undefined?'':userInfo.nation);
+							  //年龄
+							  $('#age').text(userInfo.age==undefined?'':userInfo.age+'岁');
+							  //当前城市
+							  $('#city').text(userInfo.city==undefined?'':userInfo.city);
+							  //最高学历
+							  $('#education').text(userInfo.education==undefined?'':userInfo.education);
+							  //目前状态
+							  $('#status').text(userInfo.status==undefined?'':userInfo.status);
+							  var image=App.util.isNullorEmpty(result.Images)?'normal/images/nothing.jpg':result.Images.split(',')[0];
+							  $('#headerphoto').html('<img src="'+image+'">');
+						}
+				});
+			  App.util.executeCmdSys("/wares/queryWaresAppraisePage.action",{
+				  waresId:waresId
+				},"get").success(function(result){
+					var html='';
+					$(result.waresAppraiseRespList).each(function(){
+						var userInfo='';
+						App.util.executeCmdSys("/wares/queryWaresAppraisePage.action",{
+							userId  :this.userId,
+							sex:'3'
+							},"get").success(function(result){
+								userInfo=result
+							});
+						html+=	'<li>'
+									+'<div class="fleft">'
+										+'<div class="commentheader"><img src="'+userInfo.avatar+'"></div>'
+									+'</div>'
+									+'<div class="fleft ml10 ">'
+										+'<div class="gray">'+this.userName+'</div>'
+										+'<div class="gray">10分钟前</div>'
+										+'<div class="mt10" >'+this.content1+'</div>'
+									+'</div>'
+									+'<div class="clear"></div>'
+								+'</li>'
+					});
+					
+					$('#WaresAppraise_data').text(html);
+				})
+		  }else{
+			  window.wxc.xcConfirm('waresId不能为空', window.wxc.xcConfirm.typeEnum.warning);
+		  }
+	})
+	</script> 
+</body>
+</html>

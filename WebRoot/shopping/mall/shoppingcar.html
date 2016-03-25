@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>购物车</title>
+    <link href="../css/commom.css" type="text/css" rel="stylesheet" />
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <script src="../js/touchevent.js"></script>
+</head>
+<body>
+	<div class="widper100  mtonerem shop">
+		<div class=" bgwhite ">
+			<div class="wb  patb">
+				<div class="widper80 wb">
+					<div class="widper10 ">
+						<label class="ml2 g-check" onclick="gchoose(this)">
+							<input type="checkbox" class="unsee radiobox" >
+						</label>
+					</div>
+					<div class="mlper3 tcenter">
+						<img class="icon mt0" src="../images/shopping.png">
+					</div>
+					<div class="widper70 mlper3 g-font c-line">
+						妮妮的店铺
+					</div>
+				</div>
+				<div class="widper20 tcenter g-font c-line editnum" onclick="editnum(this)" >
+					编辑
+				</div>
+				<div class="widper20 tcenter g-font c-line hide savenum" onclick="savenum(this)" >
+					完成
+				</div>
+			</div>
+		</div>
+		<div class="wb bggray relative shopitem ">
+			<div class="widper10 relative">
+				<label class="ml2 c-check">
+						<input type="checkbox" class="unsee radiobox " onchange="choose(this)">
+				</label>
+			</div>
+			<div class="widper90  patb relative wb bggray nitem move">
+				<div class="widper25 hei6rem ohiden" >
+					<img class="widper80 mlper6" src="../images/weibo.png">
+				</div>
+				<div class="widper50">
+					<div class="dg-font">
+						2015新东红色围巾保暖舒服大红色...
+					</div>
+					<div class="p12 g-font mt10">
+						<span>颜色分类：灰色；</span>
+						<span>尺码：M</span>
+					</div>
+				</div>
+				<div class="widper20 tright">
+					<div class="r-font p14">￥139</div>
+					<div class="g-font p14 ">X<span class="realval">1</span></div>
+					<div class="edit tcenter hide">
+						<div class="numadd">+</div>
+						<div>
+							<input type="text"  class="widper100 tcenter"/>
+						</div>
+						<div class="numreduce">-</div>
+					</div>
+				</div>
+			</div>
+			<div class="delete">删除</div>
+		</div>	
+		<div class="wb bggray relative shopitem mt10">
+			<div class="widper10 relative">
+				<label class="ml2 c-check">
+						<input type="checkbox" class="unsee radiobox " onchange="choose(this)">
+				</label>
+			</div>
+			<div class="widper90  patb relative wb bggray nitem move">
+				<div class="widper25 hei6rem ohiden" >
+					<img class="widper80 mlper6" src="../images/weibo.png">
+				</div>
+				<div class="widper50">
+					<div class="dg-font">
+						2015新东红色围巾保暖舒服大红色...
+					</div>
+					<div class="p12 g-font mt10">
+						<span>颜色分类：灰色；</span>
+						<span>尺码：M</span>
+					</div>
+				</div>
+				<div class="widper20 tright">
+					<div class="r-font p14">￥139</div>
+					<div class="g-font p14 ">X<span class="realval">1</span></div>
+					<div class="edit tcenter hide">
+						<div class="numadd">+</div>
+						<div>
+							<input type="text"  class="widper100 tcenter"/>
+						</div>
+						<div class="numreduce">-</div>
+					</div>
+				</div>
+			</div>
+			<div class="delete">删除</div>
+		</div>			
+	</div>
+
+	<script>
+	/*  $(function(){
+	  	var lenchoose = 0;
+	  	var leeunsee = 0;
+	  	 $('label').click(function () {
+
+                if ($(this).hasClass('check')) {
+                	if($(this).hasClass('g-check')){
+                		$(this).parents('.widper100').find('.c-check').find('.radiobox').addClass('unsee');
+                		$(this).parents('.widper100').find('.c-check').find('.radiobox').removeClass('unseechoose');
+                	}
+                	$(this).removeClass('check');
+                    $(this).find('.radiobox').removeClass('unseechoose');
+                    $(this).find('.radiobox').addClass('unsee');	
+                } else {
+                	$('label').removeClass('check');
+                    $(this).addClass('check');
+                    $(this).find('.radiobox').addClass('unseechoose');
+                    $(this).find('.radiobox').removeClass('unsee');
+                	if($(this).hasClass('g-check')){
+                	    $(this).parents('.widper100').find('.c-check').find('.radiobox').removeClass('unsee');
+                		$(this).parents('.widper100').find('.c-check').find('.radiobox').addClass('unseechoose');
+                	}else{
+                		var len = $(this).parents('.shopitem').siblings().length;                	
+                		if($(this).parents('.shopitem').find('.unseechoose')){
+                			lenchoose++;
+                			console.log(lenchoose);
+                		}else if($(this).parents('.shopitem').find('.unsee')){
+                			leeunsee ++;
+                			console.log(leeunsee);
+                		}
+                		if(len == lenchoose){
+                			$(this).parents('.widper100').find('.g-check').find('.radiobox').addClass('unseechoose');
+                			$(this).parents('.widper100').find('.g-check').find('.radiobox').removeClass('unsee');
+                			lenchoose = 0;
+                		}else if(len == leeunsee){
+                			$(this).parents('.widper100').find('.g-check').find('.radiobox').addClass('unsee');
+                			$(this).parents('.widper100').find('.g-check').find('.radiobox').removeClass('unseechoose');
+                			leeunsee = 0;
+                		}
+                	}
+                    
+                }
+
+            })
+	  })
+		function editnum(){
+			
+		}*/
+		var inputlen = 0;
+		var chooselen = 0;
+	function choose(a){
+		var this_ = $(a);
+		if(this_.is(":checked")){
+			this_.parent().addClass('unseechoose');
+			this_.parent().removeClass('unsee');
+			inputlen = this_.parents('.shopitem').siblings().length;
+			chooselen = this_.parents('.shopitem').siblings().find('label').filter('.unseechoose').length +1;
+			if(inputlen == chooselen ){
+				this_.parents('.shop').find('label').removeClass('unsee');
+				this_.parents('.shop').find('label').addClass('unseechoose')
+			}
+		}else{
+			this_.parents('.shop').find('label.g-check').removeClass('unseechoose');
+			this_.parents('.shop').find('label.g-check').addClass('unsee')
+			this_.parent().addClass('unsee');
+			this_.parent().removeClass('unseechoose');
+		}
+
+	}
+	function gchoose(b){
+		var this_ = $(b);
+		if(this_.find('input').is(":checked")){
+			this_.addClass('unseechoose');
+			this_.removeClass('unsee');
+			this_.parents('.shop').find('.shopitem').find('input').attr("checked","checked");
+			this_.parents('.shop').find('.shopitem').find('label').addClass('unseechoose');
+			this_.parents('.shop').find('.shopitem').find('label').removeClass('unsee');
+		}else{
+			this_.addClass('unsee');
+			this_.removeClass('unseechoose');
+			this_.parents('.shop').find('.shopitem').find('input').attr("checked","");
+			this_.parents('.shop').find('.shopitem').find('label').addClass('unsee');
+			this_.parents('.shop').find('.shopitem').find('label').removeClass('unseechoose');
+		}
+	}
+	function editnum(a){
+		var this_ = $(a);
+		var shopobj = [];			
+		$('.editnum').addClass('hide');
+		$('.savenum').removeClass('hide');
+		$('.edit').removeClass('hide');			
+		this_.parents('.shop').find('.realval').each(function(i,n){
+			shopobj[i] = parseInt($(n).text());
+			$(n).parents('.shopitem').find('input.widper100').val(shopobj[i])
+		})
+		this_.parents('.shop').find('.shopitem').css('height','auto');
+	}
+	function savenum(a){
+		var this_ = $(a);
+		var shopobj = [];
+		$('.savenum').addClass('hide');
+		$('.editnum').removeClass('hide');
+		$('.edit').addClass('hide');
+		this_.parents('.shop').find('input.widper100').each(function(i,n){
+			shopobj[i] = $(n).val();
+			$(n).parents('.shopitem').find('.realval').text(shopobj[i])
+		})
+		this_.parents('.shop').find('.shopitem').css('height','7rem');
+	}
+	touchev();
+	$(function(){
+		$('.numadd').click(function(){
+			var oldval = $(this).parents('.shopitem').find('input.widper100').val();
+			oldval++;
+			$(this).parents('.shopitem').find('input.widper100').val(oldval);
+			return;
+		})
+		$('.numreduce').click(function(){
+			var oldval = $(this).parents('.shopitem').find('input.widper100').val();
+			if(oldval >1){
+				oldval--;
+				$(this).parents('.shopitem').find('input.widper100').val(oldval);
+			}else{
+				alert("数量不能小于1")
+			}
+			return;
+		})
+	})
+	</script>
+</body>
+</html>

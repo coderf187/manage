@@ -1,0 +1,1758 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>物管系统</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="normal/css/normal.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/xcConfirm.css"/>
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/uniform.css" />
+<link rel="stylesheet" href="css/select2.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'> -->
+<script src="normal/js/jquery-1.10.2.min.js" /></script>
+<script src="avater/swfobject.js" /></script>
+<script src="avater/fullAvatarEditor.js" /></script>
+<script src="normal/js/normal.js" /></script>
+  <script src="normal/js/common.js" /></script>
+<script src="normal/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="normal/js/menu.js"></script>
+
+</head>
+<body>
+<div class="header" id="banner">
+    
+
+</div>
+
+<div id="sidebar">
+
+</div>
+<div id="content" class="mt90">
+  <div class="container-fluid">
+    <hr>
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+              <h5>发布家教</h5>
+            </div>
+            <div class="widget-content nopadding">
+              <form action="#" method="get" class="form-horizontal" id="teacherForm">
+              	<div class="span6">
+	              	<div class="control-group">
+	                  <label class="control-label">家教类别</label>
+	                    <div class="controls">
+	                        <div class="select2-container" id="s2id_autogen1"> 
+	                          <select style="display: none;" id="Type2" onchange="changeChildWaresTypes2()" class="validate" rule="name:'家教类别', notnull:true">
+	                        </select>
+	                      </div>
+	                    </div>
+	                </div>
+	                <div class="control-group">
+	                  <label class="control-label">老师姓名</label>
+	                  <div class="controls">
+	                    <input type="text" class="span11 validate" placeholder="请输入老师姓名" id="name" rule="name:'老师姓名', notnull:true"> 
+	                  </div>
+	                </div>
+	                <div class="control-group">
+	                  <label class="control-label">联系电话</label>
+	                  <div class="controls">
+	                    <input type="text" class="span11 validate" placeholder="请输入联系电话" id="mobile" rule="name:'联系电话', mobile: true, notnull:true">
+	                  </div>
+	                </div>
+	                <div class="control-group">
+	                  <label class="control-label">课程单价(元/小时)</label>
+	                  <div class="controls">
+	                    <input type="text" class="span11 validate" placeholder="请输入课程单价" id="price" rule="name:'课程单价', amount: true, notnull:true">
+	                  </div>
+	                </div>
+	                <div class="control-group">
+	                  <label class="control-label">毕业院校</label>
+	                  <div class="controls">
+	                    <input type="text" class="span11 validate" placeholder="请输入毕业院校" id="name2" rule="name:'毕业院校', notnull:true">
+	                  </div>
+	                </div>
+	                <div class="control-group">
+	                  <label class="control-label">培训课程</label>
+	                  <div class="controls">
+	                    <input type="text" class="span11 validate" placeholder="请输入培训课程" id="name1" rule="name:'培训课程', notnull:true">
+	                  </div>
+	                </div>
+	                <div class="control-group">
+	                  <label class="control-label">自我评价</label>
+	                  <div class="controls">
+	                    <input type="text" class="span11 validate" placeholder="请输入自我评价" id="description1" rule="name:'自我评价', notnull:true">
+	                  </div>
+	                </div>
+	            </div>
+	            <div class="span4">
+                    <div class="span2">
+                      <div class=" wid200 " id="image">
+                       
+                      </div>
+                      <div style="text-align:center;display:none" id="imageedit">
+                        <div class="editclose">X</div>
+
+                          <div>
+                            <p id="swfContainer">
+                               本组件需要安装Flash Player后才可使用，请从<a href="http://www.adobe.com/go/getflashplayer">这里</a>下载安装。
+                            </p>
+                          </div>
+                          <button type="button" id="upload" style="display:none;margin-top:8px;">swf外定义的上传按钮，点击可执行上传保存操作</button>
+                        </div>
+                    </div>
+                  </div>
+                <div class="widget-box">
+                  <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                    <h5>课程安排</h5>
+                  </div>
+                  <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th>时间段</th>
+                          <th>上午</th>
+                          <th>下午</th>
+                          <th>晚上</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="odd gradeX">
+                          <td>周一</td>
+                          <td>
+	                          <select class="span4" style="display: none;" id="Monday_AM_1">
+		                          <option value="0">不排课</option>
+	                              <option value="1" >08:00</option>
+	                              <option value="2">09:00</option>
+	                              <option value="3">10:00</option>
+	                              <option value="4">11:00</option>
+	                              <option value="5">12:00</option>
+	                          </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Monday_AM_2">
+                              <option  value="0">不排课</option>
+                              <option  value="1">08:00</option>
+                              <option value="2">09:00</option>
+                              <option value="3">10:00</option>
+                              <option value="4">11:00</option>
+                              <option value="5">12:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Monday_PM_1">
+                              <option selected value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Monday_PM_2">
+                              <option value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Monday_Night_1">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Monday_Night_2">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr class="odd gradeX">
+                          <td>周二</td>
+                          <td>
+                            <select class="span4" id="Tuesday_AM_1">
+                              <option value="0">不排课</option>
+                              <option value="1" >08:00</option>
+                              <option value="2">09:00</option>
+                              <option value="3">10:00</option>
+                              <option value="4">11:00</option>
+                              <option value="5">12:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Tuesday_AM_2">
+                              <option value="0">不排课</option>
+                              <option value="1">08:00</option>
+                              <option value="2">09:00</option>
+                              <option value="3">10:00</option>
+                              <option value="4">11:00</option>
+                              <option value="5">12:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Tuesday_PM_1">
+                              <option value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Tuesday_PM_2">
+                              <option value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Tuesday_Night_1">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Tuesday_Night_2">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr class="odd gradeX">
+                          <td>周三</td>
+                          <td>
+                            <select class="span4" id="Wednesday_AM_1">
+                              <option value="0">不排课</option>
+                              <option value="1" >08:00</option>
+                              <option value="2">09:00</option>
+                              <option value="3">10:00</option>
+                              <option value="4">11:00</option>
+                              <option value="5">12:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Wednesday_AM_2">
+                              <option value="0">不排课</option>
+                              <option value="1">08:00</option>
+                              <option value="2">09:00</option>
+                              <option value="3">10:00</option>
+                              <option value="4">11:00</option>
+                              <option value="5">12:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Wednesday_PM_1">
+                              <option value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Wednesday_PM_2">
+                              <option value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Wednesday_Night_1">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Wednesday_Night_2">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr class="odd gradeX">
+                          <td>周四</td>
+                          <td>
+                            <select class="span4" id="Thursday_AM_1">
+                              <option value="0">不排课</option>
+                              <option value="1" >08:00</option>
+                              <option value="2">09:00</option>
+                              <option value="3">10:00</option>
+                              <option value="4">11:00</option>
+                              <option value="5">12:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Thursday_AM_2">
+                              <option value="0">不排课</option>
+                              <option value="1">08:00</option>
+                              <option value="2">09:00</option>
+                              <option value="3">10:00</option>
+                              <option value="4">11:00</option>
+                              <option value="5">12:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Thursday_PM_1">
+                              <option value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Thursday_PM_2">
+                              <option value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Thursday_Night_1">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Thursday_Night_2">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                          </td>
+                        </tr>
+                         <tr class="odd gradeX">
+                          <td>周五</td>
+                          <td>
+                            <select class="span4" id="Friday_AM_1">
+                              <option value="0">不排课</option>
+                              <option value="1" >08:00</option>
+                              <option value="2">09:00</option>
+                              <option value="3">10:00</option>
+                              <option value="4">11:00</option>
+                              <option value="5">12:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Friday_AM_2">
+                              <option value="0">不排课</option>
+                              <option value="1">08:00</option>
+                              <option value="2">09:00</option>
+                              <option value="3">10:00</option>
+                              <option value="4">11:00</option>
+                              <option value="5">12:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Friday_PM_1">
+                              <option value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Friday_PM_2">
+                              <option value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Friday_Night_1">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Friday_Night_2">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr class="odd gradeX">
+                          <td>周六</td>
+                          <td>
+                            <select class="span4" id="Saturday_AM_1">
+                              <option value="0">不排课</option>
+                              <option value="1" >08:00</option>
+                              <option value="2">09:00</option>
+                              <option value="3">10:00</option>
+                              <option value="4">11:00</option>
+                              <option value="5">12:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Saturday_AM_2">
+                              <option value="0">不排课</option>
+                              <option value="1">08:00</option>
+                              <option value="2">09:00</option>
+                              <option value="3">10:00</option>
+                              <option value="4">11:00</option>
+                              <option value="5">12:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Saturday_PM_1">
+                              <option value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Saturday_PM_2">
+                              <option value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Saturday_Night_1">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Saturday_Night_2">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                          </td>
+                        </tr>
+                         <tr class="odd gradeX">
+                          <td>周日</td>
+                          <td>
+                            <select class="span4" id="Sunday_AM_1">
+                              <option value="0">不排课</option>
+                              <option value="1" >08:00</option>
+                              <option value="2">09:00</option>
+                              <option value="3">10:00</option>
+                              <option value="4">11:00</option>
+                              <option value="5">12:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Sunday_AM_2">
+                              <option value="0">不排课</option>
+                              <option value="1">08:00</option>
+                              <option value="2">09:00</option>
+                              <option value="3">10:00</option>
+                              <option value="4">11:00</option>
+                              <option value="5">12:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Sunday_PM_1">
+                              <option value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Sunday_PM_2">
+                              <option value="0">不排课</option>
+                              <option value="1">13:00</option>
+                              <option value="2">14:00</option>
+                              <option value="3">15:00</option>
+                              <option value="4">16:00</option>
+                              <option value="5">17:00</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="span4" id="Sunday_Night_1">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                            <div class="fleft ml10">至</div>
+                            <select class="span4" id="Sunday_Night_2">
+                              <option value="0">不排课</option>
+                              <option value="1">18:00</option>
+                              <option value="2">19:00</option>
+                              <option value="3">20:00</option>
+                              <option value="4">21:00</option>
+                              <option value="5">22:00</option>
+                            </select>
+                          </td>
+                        </tr>            
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="form-actions">
+               		<button type="button" class="btn btn-success" onclick="addPubHomeTeacher()">发布课程</button>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Footer-part-->
+<div class="row-fluid">
+  <div id="footer" class="span12">
+  服务热线：028-25855545<br/>
+  Copyright © 2014 XXXX 版权所有
+  </div>
+</div>
+<div class="overlay">
+ 
+</div>
+<!--end-Footer-part-->
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/jquery.dataTables.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/matrix.tables.js"></script>
+<script type="text/javascript">
+//绑定修改图片事件
+function changeImage(){
+	  $('#imageedit').show();
+	  }
+$(function(){
+  var  hei_ = $(window).height();
+  $('.overlay').css('height',hei_);
+   $('.imagechange').click(function(){
+        $('#imageedit').show();
+        $('.overlay').show();
+    })
+   $('.editclose').click(function(){
+      $('#imageedit').hide();
+      $('.overlay').hide();
+   })
+   })
+
+var imageHtml = '';
+var url = '';
+var Type2 = '';
+var Type3 = '';
+
+swfobject.addDomLoadEvent(function () {
+    //以下两行代码正式环境下请删除
+   // if(location.href.indexOf('http://') == -1) 
+    //alert('请于WEB服务器环境中查看、测试！\n\n既 http://*/simpleDemo.html\n\n而不是本地路径 file:///*/simpleDemo.html的方式');
+    var swf = new fullAvatarEditor("fullAvatarEditor.swf", "expressInstall.swf", "swfContainer", {
+        id : 'swf',
+        upload_url : '/manage/fileUpload',  //上传接口
+        method : 'post',  //传递到上传接口中的查询参数的提交方式。更改该值时，请注意更改上传接口中的查询参数的接收方式
+        src_upload : 2    //是否上传原图片的选项，有以下值：0-不上传；1-上传；2-显示复选框由用户选择
+      }, function (msg) {
+        switch(msg.code)
+        {
+          case 1 : break;
+          case 2 : 
+            document.getElementById("upload").style.display = "inline";
+            break;
+          case 3 :
+        	  if(msg.type == 0)
+              {
+              	window.wxc.xcConfirm('摄像头已准备就绪且用户已允许使用。', window.wxc.xcConfirm.typeEnum.info);
+              }
+              else if(msg.type == 1)
+              {
+              	window.wxc.xcConfirm("摄像头已准备就绪但用户未允许使用！", window.wxc.xcConfirm.typeEnum.info);
+              }
+              else
+              {
+              	window.wxc.xcConfirm("摄像头被占用！", window.wxc.xcConfirm.typeEnum.info);
+              }
+          break;
+          case 5 : 
+            if(msg.type == 1)
+            {
+            	if(msg.content&&msg.content[0]){
+            		url = msg.content[0].url;
+            		$("#image").html('');
+            		 imageHtml = '<a href="#">'
+            				+ '<img id="image" src="'+url+'" />'
+            				+'</a>'
+            				+'<button type="button" class="imagechange btn btn-info" onclick="changeImage()">修改图片</button>';
+            		$("#image").html(imageHtml);
+            		window.wxc.xcConfirm("图片上传成功!", window.wxc.xcConfirm.typeEnum.success);
+            	}else{
+            		window.wxc.xcConfirm("图片上传失败，请刷新页面重试!", window.wxc.xcConfirm.typeEnum.error);
+            	}
+            }
+          break;
+        }
+      }
+    );
+    document.getElementById("upload").onclick=function(){
+      swf.call("upload");
+    };
+    });
+  
+//改变预约列表
+  function changeChildWaresTypes2(){
+  	var Type = $("#Type2").val().split("_");
+  	Type2 = Type[0];
+  	if(Type.length > 1){
+  		Type3 = Type[1];
+  	}else{
+  		Type3 = "";
+  	}
+  }
+
+function addPubHomeTeacher(){
+	if(App.util.validate($("#teacherForm"))){
+		
+	  	//老师姓名
+	  	var name=$('#name').val();
+	  	//联系电话
+	  	var mobile=$('#mobile').val();
+	  	//课程单价
+	  	var price=$('#price').val();
+	  	//毕业院校
+	  	var name2=$('#name2').val();
+	  	//培训课程
+	  	var name1=$('#name1').val();
+	  	//自我评价
+	  	var description1=$('#description1').val();
+	  	//课程安排
+	  	var description2='';
+		  
+	  	//周一上午1
+	  	var Monday_AM_1=$('#Monday_AM_1').val();
+	  	//周一上午2
+	  	var Monday_AM_2=$('#Monday_AM_2').val();
+	  	//验证周一上午
+	  	if(Monday_AM_1==0 && Monday_AM_2!=0){
+	  		window.wxc.xcConfirm("周一上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  		return false;
+	  		}
+	  	if(Monday_AM_1!=0 && Monday_AM_2==0){
+	  		window.wxc.xcConfirm("周一上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  		return false;
+	  		}
+	  	if(Monday_AM_1!=0 && Monday_AM_2!=0){
+	  		if(Monday_AM_1>=Monday_AM_2){
+	  			window.wxc.xcConfirm("周一上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  			return false;
+	  			}else{
+	  				description2+='周一_上午_'+$('#Monday_AM_1 option:selected').text()+'-'+$('#Monday_AM_2 option:selected').text()+',';
+	  				}
+	  		}
+	  	//周一下午1
+	  	var Monday_PM_1=$('#Monday_PM_1').val();
+	  	//周一下午2
+	  	var Monday_PM_2=$('#Monday_PM_2').val();
+	  	//验证周一下午
+	  	if(Monday_PM_1==0 && Monday_PM_2!=0){
+	  		window.wxc.xcConfirm("周一下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  		return false;
+	  		}
+	  	if(Monday_PM_1!=0 && Monday_PM_2==0){
+	  		window.wxc.xcConfirm("周一下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  		return false;
+	  		}
+	  	if(Monday_PM_1!=0 && Monday_PM_2!=0){
+	  		if(Monday_PM_1>=Monday_PM_2){
+	  			window.wxc.xcConfirm("周一下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  			return false;
+	  			}else{
+	  				description2+='周一_下午_'+$('#Monday_PM_1 option:selected').text()+'-'+$('#Monday_PM_2 option:selected').text()+',';
+	  				}
+	  		}
+	  	//周一晚上1
+	  	var Monday_Night_1=$('#Monday_Night_1').val();
+	  	//周一晚上2
+	  	var Monday_Night_2=$('#Monday_Night_2').val();
+	  	//验证周一晚上
+	  	if(Monday_Night_1==0 && Monday_Night_2!=0){
+	  		window.wxc.xcConfirm("周一晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  		return false;
+	  		}
+	  	if(Monday_Night_1!=0 && Monday_Night_2==0){
+	  		window.wxc.xcConfirm("周一晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  		return false;
+	  		}
+	  	if(Monday_Night_1!=0 && Monday_Night_2!=0){
+	  		if(Monday_Night_1>=Monday_Night_2){
+	  			window.wxc.xcConfirm("周一晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  			return false;
+	  			}else{
+	  				description2+='周一_晚上_'+$('#Monday_Night_1 option:selected').text()+'-'+$('#Monday_Night_2 option:selected').text()+',';
+	  				}
+	  		}  
+	  
+	  	//周二上午1
+	  	var Tuesday_AM_1=$('#Tuesday_AM_1').val();
+	  	//周二上午2
+	  	var Tuesday_AM_2=$('#Tuesday_AM_2').val();
+	  	//验证周二上午
+	  	if(Tuesday_AM_1==0 && Tuesday_AM_2!=0){
+	  		window.wxc.xcConfirm("周二上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  		return false;
+	  		}	  	
+	  	if(Tuesday_AM_1!=0 && Tuesday_AM_2==0){
+	  		window.wxc.xcConfirm("周二上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  		return false;
+	  		}
+	  	if(Tuesday_AM_1!=0 && Tuesday_AM_2!=0){
+	  		if(Tuesday_AM_1>=Tuesday_AM_2){
+	  			window.wxc.xcConfirm("周二上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  			return false;
+	  			}else{
+	  				description2+='周二_上午_'+$('#Tuesday_AM_1 option:selected').text()+'-'+$('#Tuesday_AM_2 option:selected').text()+',';
+	  				}
+	  		}
+	  
+	  	//周二下午1
+	  	var Tuesday_PM_1=$('#Tuesday_PM_1').val();
+	  	//周二下午2
+	  	var Tuesday_PM_2=$('#Tuesday_PM_2').val();
+	  	//验证周二下午
+	  	if(Tuesday_PM_1==0 && Tuesday_PM_2!=0){
+	  		window.wxc.xcConfirm("周二下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  		return false;
+	  		}
+	  	if(Tuesday_PM_1!=0 && Tuesday_PM_2==0){
+	  		window.wxc.xcConfirm("周二下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  		return false;
+	  		}
+	  	if(Tuesday_PM_1!=0 && Tuesday_PM_2!=0){
+	  		if(Tuesday_PM_1>=Tuesday_PM_2){
+	  			window.wxc.xcConfirm("周二下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+	  			return false;
+	  			}else{
+	  				description2+='周二_下午_'+$('#Tuesday_PM_1 option:selected').text()+'-'+$('#Tuesday_PM_2 option:selected').text()+',';
+	  				}
+	  		}
+	  
+	  //周二晚上1
+	  var Tuesday_Night_1=$('#Tuesday_Night_1').val();
+	  //周二晚上2
+	  var Tuesday_Night_2=$('#Tuesday_Night_2').val();
+	  //验证周二晚上
+	  if(Tuesday_Night_1==0 && Tuesday_Night_2!=0){
+		  window.wxc.xcConfirm("周二晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Tuesday_Night_1!=0 && Tuesday_Night_2==0){
+		  window.wxc.xcConfirm("周二晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Tuesday_Night_1!=0 && Tuesday_Night_2!=0){
+		  if(Tuesday_Night_1>=Tuesday_Night_2){
+			  window.wxc.xcConfirm("周二晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周二_晚上_'+$('#Tuesday_Night_1 option:selected').text()+'-'+$('#Tuesday_Night_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  
+	  
+	  //周三上午1
+	  var Wednesday_AM_1=$('#Wednesday_AM_1').val();
+	  //周三上午2
+	  var Wednesday_AM_2=$('#Wednesday_AM_2').val();
+	  //验证周三上午
+	  if(Wednesday_AM_1==0 && Wednesday_AM_2!=0){
+		  window.wxc.xcConfirm("周三上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Wednesday_AM_1!=0 && Wednesday_AM_2==0){
+		  window.wxc.xcConfirm("周三上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Wednesday_AM_1!=0 && Wednesday_AM_2!=0){
+		  if(Wednesday_AM_1>=Wednesday_AM_2){
+			  window.wxc.xcConfirm("周三上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周三_上午_'+$('#Wednesday_AM_1 option:selected').text()+'-'+$('#Wednesday_AM_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  //周三下午1
+	  var Wednesday_PM_1=$('#Wednesday_PM_1').val();
+	  //周三下午2
+	  var Wednesday_PM_2=$('#Wednesday_PM_2').val();
+	  //验证周三下午
+	  if(Wednesday_PM_1==0 && Wednesday_PM_2!=0){
+		  window.wxc.xcConfirm("周三下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Wednesday_PM_1!=0 && Wednesday_PM_2==0){
+		  window.wxc.xcConfirm("周三下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Wednesday_PM_1!=0 && Wednesday_PM_2!=0){
+		  if(Wednesday_PM_1>=Wednesday_PM_2){
+			  window.wxc.xcConfirm("周三下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周三_下午_'+$('#Wednesday_PM_1 option:selected').text()+'-'+$('#Wednesday_PM_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  //周三晚上1
+	  var Wednesday_Night_1=$('#Wednesday_Night_1').val();
+	  //周三晚上2
+	  var Wednesday_Night_2=$('#Wednesday_Night_2').val();
+	  //验证周三晚上
+	  if(Wednesday_Night_1==0 && Wednesday_Night_2!=0){
+		  window.wxc.xcConfirm("周三晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Wednesday_Night_1!=0 && Wednesday_Night_2==0){
+		  window.wxc.xcConfirm("周三晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Wednesday_Night_1!=0 && Wednesday_Night_2!=0){
+		  if(Wednesday_Night_1>=Wednesday_Night_2){
+			  window.wxc.xcConfirm("周三晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周三_晚上_'+$('#Wednesday_Night_1 option:selected').text()+'-'+$('#Wednesday_Night_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  
+	  
+	  //周四上午1
+	  var Thursday_AM_1=$('#Thursday_AM_1').val();
+	  //周四上午2
+	  var Thursday_AM_2=$('#Thursday_AM_2').val();
+	  //验证周四上午
+	  if(Thursday_AM_1==0 && Thursday_AM_2!=0){
+		  window.wxc.xcConfirm("周四上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Thursday_AM_1!=0 && Thursday_AM_2==0){
+		  window.wxc.xcConfirm("周四上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Thursday_AM_1!=0 && Thursday_AM_2!=0){
+		  if(Thursday_AM_1>=Thursday_AM_2){
+			  window.wxc.xcConfirm("周四上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周四_上午_'+$('#Thursday_AM_1 option:selected').text()+'-'+$('#Thursday_AM_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  //周四下午1
+	  var Thursday_PM_1=$('#Thursday_PM_1').val();
+	  //周四下午2
+	  var Thursday_PM_2=$('#Thursday_PM_2').val();
+	  //验证周四下午
+	  if(Thursday_PM_1==0 && Thursday_PM_2!=0){
+		  window.wxc.xcConfirm("周四下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Thursday_PM_1!=0 && Thursday_PM_2==0){
+		  window.wxc.xcConfirm("周四下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Thursday_PM_1!=0 && Thursday_PM_2!=0){
+		  if(Thursday_PM_1>=Thursday_PM_2){
+			  window.wxc.xcConfirm("周四下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周四_下午_'+$('#Thursday_PM_1 option:selected').text()+'-'+$('#Thursday_PM_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  //周四晚上1
+	  var Thursday_Night_1=$('#Thursday_Night_1').val();
+	  //周四晚上2
+	  var Thursday_Night_2=$('#Thursday_Night_2').val();
+	  //验证周四晚上
+	  if(Thursday_Night_1==0 && Thursday_Night_2!=0){
+		  window.wxc.xcConfirm("周四晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Thursday_Night_1!=0 && Thursday_Night_2==0){
+		  window.wxc.xcConfirm("周四晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Thursday_Night_1!=0 && Thursday_Night_2!=0){
+		  if(Thursday_Night_1>=Thursday_Night_2){
+			  window.wxc.xcConfirm("周四晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周四_晚上_'+$('#Thursday_Night_1 option:selected').text()+'-'+$('#Thursday_Night_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  
+	  
+	  //周五上午1
+	  var Friday_AM_1=$('#Friday_AM_1').val();
+	  //周五上午2
+	  var Friday_AM_2=$('#Friday_AM_2').val();
+	  //验证周五上午
+	  if(Friday_AM_1==0 && Friday_AM_2!=0){
+		  window.wxc.xcConfirm("周五上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Friday_AM_1!=0 && Friday_AM_2==0){
+		  window.wxc.xcConfirm("周五上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Friday_AM_1!=0 && Friday_AM_2!=0){
+		  if(Friday_AM_1>=Friday_AM_2){
+			  window.wxc.xcConfirm("周五上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周五_上午_'+$('#Friday_AM_1 option:selected').text()+'-'+$('#Friday_AM_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  //周五下午1
+	  var Friday_PM_1=$('#Friday_PM_1').val();
+	  //周五下午2
+	  var Friday_PM_2=$('#Friday_PM_2').val();
+	  //验证周五下午
+	  if(Friday_PM_1==0 && Friday_PM_2!=0){
+		  window.wxc.xcConfirm("周五下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Friday_PM_1!=0 && Friday_PM_2==0){
+		  window.wxc.xcConfirm("周五下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Friday_PM_1!=0 && Friday_PM_2!=0){
+		  if(Friday_PM_1>=Friday_PM_2){
+			  window.wxc.xcConfirm("周五下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周五_下午_'+$('#Friday_PM_1 option:selected').text()+'-'+$('#Friday_PM_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  //周五晚上1
+	  var Friday_Night_1=$('#Friday_Night_1').val();
+	  //周五晚上2
+	  var Friday_Night_2=$('#Friday_Night_2').val();
+	  //验证周五晚上
+	  if(Friday_Night_1==0 && Friday_Night_2!=0){
+		  window.wxc.xcConfirm("周五晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Friday_Night_1!=0 && Friday_Night_2==0){
+		  window.wxc.xcConfirm("周五晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Friday_Night_1!=0 && Friday_Night_2!=0){
+		  if(Friday_Night_1>=Friday_Night_2){
+			  window.wxc.xcConfirm("周五晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周五_晚上_'+$('#Friday_Night_1 option:selected').text()+'-'+$('#Friday_Night_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  
+	  
+	  //周六上午1
+	  var Saturday_AM_1=$('#Saturday_AM_1').val();
+	  //周六上午2
+	  var Saturday_AM_2=$('#Saturday_AM_2').val();
+	  //验证周六上午
+	  if(Saturday_AM_1==0 && Saturday_AM_2!=0){
+		  window.wxc.xcConfirm("周六上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Saturday_AM_1!=0 && Saturday_AM_2==0){
+		  window.wxc.xcConfirm("周六上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Saturday_AM_1!=0 && Saturday_AM_2!=0){
+		  if(Saturday_AM_1>=Saturday_AM_2){
+			  window.wxc.xcConfirm("周六上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周六_上午_'+$('#Saturday_AM_1 option:selected').text()+'-'+$('#Saturday_AM_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  //周六下午1
+	  var Saturday_PM_1=$('#Saturday_PM_1').val();
+	  //周六下午2
+	  var Saturday_PM_2=$('#Saturday_PM_2').val();
+	  //验证周六下午
+	  if(Saturday_PM_1==0 && Saturday_PM_2!=0){
+		  window.wxc.xcConfirm("周六下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Saturday_PM_1!=0 && Saturday_PM_2==0){
+		  window.wxc.xcConfirm("周六下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Saturday_PM_1!=0 && Saturday_PM_2!=0){
+		  if(Saturday_PM_1>=Saturday_PM_2){
+			  window.wxc.xcConfirm("周六下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周六_下午_'+$('#Saturday_PM_1 option:selected').text()+'-'+$('#Saturday_PM_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  //周六晚上1
+	  var Saturday_Night_1=$('#Saturday_Night_1').val();
+	  //周六晚上2
+	  var Saturday_Night_2=$('#Saturday_Night_2').val();
+	  //验证周六晚上
+	  if(Saturday_Night_1==0 && Saturday_Night_2!=0){
+		  window.wxc.xcConfirm("周六晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Saturday_Night_1!=0 && Saturday_Night_2==0){
+		  window.wxc.xcConfirm("周六晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Saturday_Night_1!=0 && Saturday_Night_2!=0){
+		  if(Saturday_Night_1>=Saturday_Night_2){
+			  window.wxc.xcConfirm("周六晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周六_晚上_'+$('#Saturday_Night_1 option:selected').text()+'-'+$('#Saturday_Night_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  
+	  
+	  //周日上午1
+	  var Sunday_AM_1=$('#Sunday_AM_1').val();
+	  //周日上午2
+	  var Sunday_AM_2=$('#Sunday_AM_2').val();
+	  //验证周日上午
+	  if(Sunday_AM_1==0 && Sunday_AM_2!=0){
+		  window.wxc.xcConfirm("周日上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Sunday_AM_1!=0 && Sunday_AM_2==0){
+		  window.wxc.xcConfirm("周日上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Sunday_AM_1!=0 && Sunday_AM_2!=0){
+		  if(Sunday_AM_1>=Sunday_AM_2){
+			  window.wxc.xcConfirm("周日上午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周日_上午_'+$('#Sunday_AM_1 option:selected').text()+'-'+$('#Sunday_AM_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  //周日下午1
+	  var Sunday_PM_1=$('#Sunday_PM_1').val();
+	  //周日下午2
+	  var Sunday_PM_2=$('#Sunday_PM_2').val();
+	  //验证周日上午
+	  if(Sunday_PM_1==0 && Sunday_PM_2!=0){
+		  window.wxc.xcConfirm("周日下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Sunday_PM_1!=0 && Sunday_PM_2==0){
+		  window.wxc.xcConfirm("周日下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Sunday_PM_1!=0 && Sunday_PM_2!=0){
+		  if(Sunday_PM_1>=Sunday_PM_2){
+			  window.wxc.xcConfirm("周日下午排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周日_下午_'+$('#Sunday_PM_1 option:selected').text()+'-'+$('#Sunday_PM_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  //周日晚上1
+	  var Sunday_Night_1=$('#Sunday_Night_1').val();
+	  //周日晚上2
+	  var Sunday_Night_2=$('#Sunday_Night_2').val();
+	  //验证周日晚上
+	  if(Sunday_Night_1==0 && Sunday_Night_2!=0){
+		  window.wxc.xcConfirm("周日晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Sunday_Night_1!=0 && Sunday_Night_2==0){
+		  window.wxc.xcConfirm("周日晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+		  return false;
+	  }
+	  if(Sunday_Night_1!=0 && Sunday_Night_2!=0){
+		  if(Sunday_Night_1>=Sunday_Night_2){
+			  window.wxc.xcConfirm("周日晚上排课有问题", window.wxc.xcConfirm.typeEnum.warning);
+			  return false;
+		  }else{
+			  description2+='周日_晚上_'+$('#Sunday_Night_1 option:selected').text()+'-'+$('#Sunday_Night_2 option:selected').text()+',';
+		  }
+	  }
+	  
+	  if(description2!=''){
+		  description2=description2.substr(0,description2.length-1)
+	  }
+	 	  
+	  var waresId=App.util.getUrlParam('waresId');
+	  if(waresId==null ||waresId==''|| waresId==undefined){
+	  	  App.util.executeCmdSys("/wares/addWares.action", {
+	  	  	sellerId:currentUser.userId,
+	  		//课程单价
+	  	  	Price:price,
+	  	  	Unit:'元',
+	  	  	//培训课程
+	  	  	Name1:name1,
+	  	  	//毕业院校
+	  	  	Name2:name2,
+	  	  	//自我评价
+	  	  	description1:description1,
+	  	  	//课程安排
+	  	  	description2:description2,
+	  	  	Images:url,
+	  	  	Type1:'1',
+	  	  	Type2: Type2,
+	  	  	Type3: Type3
+	  		},"post").success(function(result) {
+	  			console.log(result);
+	  			if(result.code=='succ001'){
+					App.util.executeCmdSys("/wares/addUserInfo.action", {
+		  				waresId: result.waresId,
+		  				name: name,
+		  				mobile: mobile
+		  				},"post").success(function(res) {
+		  					if(res.code=='succ001'){
+		  						window.wxc.xcConfirm("课程发布成功", window.wxc.xcConfirm.typeEnum.success,{onOk:function(){window.location.href = "modhometeacher.html";}});
+		  						
+		  					}else{
+		  						window.wxc.xcConfirm("课程发布失败！", window.wxc.xcConfirm.typeEnum.error);
+		  					}
+		  				});
+	   				
+	  			}else{
+	  				window.wxc.xcConfirm("课程发布失败！", window.wxc.xcConfirm.typeEnum.error);
+	  			}
+	  		}); 
+	  }else{
+	  	  App.util.executeCmdSys("/wares/updateWares.action", {
+	  		waresId: waresId,
+	  	  	sellerId:currentUser.userId,
+	  		//课程单价
+	  	  	Price:price,
+	  	  	Unit:'元/小时',
+	  	  	//培训课程
+	  	  	Name1:name1,
+	  	  	//毕业院校
+	  	  	Name2:name2,
+	  	  	//自我评价
+	  	  	description1:description1,
+	  	  	//课程安排
+	  	  	description2:description2,
+	  	  	Images:url,
+	  	  	Type1:'1',
+	  	  	Type2:Type2,
+	  	  	Type3:Type3
+	  		},"post").success(function(result) {
+	  			console.log(result);
+	  			if(result.code=='succ001'){
+	  				var userInfo='';
+	   			App.util.executeCmdSys("/wares/queryUserInfoByWaresId.action", {
+	  				waresId: waresId
+	  				},"post").success(function(res) {
+	  					userInfo=res;
+	  				});
+   				App.util.executeCmdSys("/wares/updateUserInfo.action", {
+   					waresId: waresId,
+	   				userInfoId: userInfo.userInfoId,
+	  				name: name,
+	  				mobile: mobile,
+		  			workYears1: userInfo.workYears1,
+		  			nation: userInfo.nation,
+		  			age: userInfo.age,
+		  			city: userInfo.city,
+		  			education: userInfo.education,
+		  			status: userInfo.status,
+		  			workTime: userInfo.workTime,
+		  			workYears2: userInfo.workYears2,
+		  			address: userInfo.address,
+		  			homeTown: userInfo.homeTown,
+		  			field1: userInfo.field1,
+		  			field2: userInfo.field2,
+		  			field3: userInfo.field3,
+		  			field4: userInfo.field4,
+		  			creatTIme: userInfo.creatTIme,
+		  			updateTime: userInfo.updateTime
+	  				},"post").success(function(res) {
+	  					if(res.code=='succ001'){
+	  						window.wxc.xcConfirm("课程修改成功", window.wxc.xcConfirm.typeEnum.success,{onOk:function(){window.location.href = "modhometeacher.html";}});
+	  					}else{
+	  						window.wxc.xcConfirm("课程修改失败！", window.wxc.xcConfirm.typeEnum.error);
+	  					}
+	  				});
+	  			}else{
+	  				window.wxc.xcConfirm("课程修改失败！", window.wxc.xcConfirm.typeEnum.error);
+	  			}
+	  		}); 
+	  }
+	}
+}
+
+/**
+ * @param time 时间参数（格式01:25或者1:25或者01:2或者1:1）
+ */
+function getSelectTime(time){
+	 if(time==null || time==''){
+		 window.wxc.xcConfirm('时间格式不符合格式：'+time, window.wxc.xcConfirm.typeEnum.info);
+	 }
+	var info=time.split(':');
+	if(info.length==2){
+		if(!(info[0].length==2 && info[1].length==2)){
+			window.wxc.xcConfirm('时间格式不符合格式：'+time, window.wxc.xcConfirm.typeEnum.info);
+			return false;
+		}
+	}else{
+		window.wxc.xcConfirm('时间格式不符合格式：'+time, window.wxc.xcConfirm.typeEnum.info);
+		return false;
+	}
+	var len=time.length;
+	switch(len){
+	case 3:
+		time='0'+info[0]+':'+'0'+info[1];
+		break;
+	case 4:
+		if(info[0].length!=2){
+			time='0'+info[0]+':'+info[1];
+		}else if(info[1].length!=2){
+			time=info[0]+':'+'0'+info[1];
+		}
+		break;
+	case 5:
+		time=time;
+		break;
+	default:
+		window.wxc.xcConfirm('时间格式不符合格式：'+time, window.wxc.xcConfirm.typeEnum.info);
+	}
+	
+	var value=0;
+	switch(time){
+	case '08:00':
+		value=1;
+		break;
+	case '09:00':
+		value=2;
+		break;
+	case '10:00':
+		value=3;
+		break;
+	case '11:00':
+		value=4;
+		break;
+	case '12:00':
+		value=5;
+		break;
+	case '13:00':
+		value=1;
+		break;
+	case '14:00':
+		value=2;
+		break;
+	case '15:00':
+		value=3;
+		break;
+	case '16:00':
+		value=4;
+		break;
+	case '17:00':
+		value=5;
+		break;
+	case '18:00':
+		value=1;
+		break;
+	case '19:00':
+		value=2;
+		break;
+	case '20:00':
+		value=3;
+		break;
+	case '21:00':
+		value=4;
+		break;
+	case '22:00':
+		value=5;
+		break;
+	}
+	return value;
+}
+
+$(function(){
+	//加载横幅菜单
+	banner();
+	//加载权限菜单
+	rightMenu(8);
+	
+	App.util.executeCmdSys("/wares/queryWaresTypePage.action", {
+		pId:'1',
+		grade:'2'
+	},"post").success(function(result) {
+		$("#Type2").append('<option value="">下拉选择类别</option>')
+		$.each(result.waresTypeRespList, function(){
+			if(this.Name1=='语言类'){
+				var info=this.Name1;
+				var Type2 = this.waresTypeId;
+				App.util.executeCmdSys("/wares/queryWaresTypePage.action", {
+					pId:this.waresTypeId,
+					grade:'3'
+				},"post").success(function(result) {
+					$.each(result.waresTypeRespList, function(){
+						var typeName = info + "(" + this.Name1+")";
+						$("#Type2").append("<option  value='"+Type2+"_"+this.waresTypeId+"'>"+typeName+"</option>");
+					});
+				});
+			}else{
+				$("#Type2").append("<option  value='"+this.waresTypeId+"'>"+this.Name1+"</option>");
+			}
+		});
+	});
+	//回显
+  var waresId=App.util.getUrlParam('waresId');
+  if(!(waresId==null || waresId=='')){
+	  App.util.executeCmdSys("/wares/queryWaresById.action", {
+			waresId: App.util.getUrlParam('waresId')
+			},"get").success(function(result) {
+				if(result.code=='succ001'){
+					var userInfo='';
+					App.util.executeCmdSys("/wares/queryUserInfoByWaresId.action",{
+						waresId:result.waresId
+					},"get").success(function(res){
+						userInfo=res;
+					})
+					url = result.Images;
+				  	//老师姓名
+				  	var name=$('#name').val(userInfo.name);
+					//联系电话
+				  	var mobile=$('#mobile').val(userInfo.mobile);
+					Type2 = result.Type2;
+					Type3 = result.Type3;
+					var typeValue = '';
+					if(result.Type3 != null && result.Type3 != ""){
+						typeValue = result.Type2+"_"+result.Type3
+					}else{
+						typeValue = result.Type2;
+					}
+					$("#Type2 option").each(function(i,n){
+						if($(n).val()==typeValue){
+							$(n).attr("selected",true);
+							$("#Type2").prev().find('a').append('<span>'+$(n).text()+'</span>');
+							}
+						});
+				  	//课程单价
+				  	$('#price').val(result.Price);
+				  	//毕业院校
+				  	$('#name2').val(result.Name2);
+				  	//培训课程
+				  	$('#name1').val(result.Name1);
+				  	//自我评价
+				  	$('#description1').val(result.description1);
+				  	//课程安排（格式：周一_上午_7:00-12:00,周二_中午_14:00-15:00,周三_晚上_18:00-19:00）
+				  	/* var Monday_AM_1 */
+	     		    if(result.description2!=null && result.description2!=''){
+					  var infos=result.description2.split(',');
+					  for(var i=0;i<infos.length;i++){
+						  var temps=infos[i].split('_');
+						  if(temps[0]=='周一'){
+							  var times=temps[2].split('-');
+							  if(temps[1]=='上午'){
+								  $("#Monday_AM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Monday_AM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Monday_AM_2 option").each(function(i,n){
+										if($(n).text()==times[1]){
+											$(n).attr("selected",true);
+											$("#Monday_AM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='下午'){
+								  $("#Monday_PM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Monday_PM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Monday_PM_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Monday_PM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='晚上'){
+								  $("#Monday_Night_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Monday_Night_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Monday_Night_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Monday_Night_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+						  }
+						  if(temps[0]=='周二'){
+							  var times=temps[2].split('-');
+							  if(temps[1]=='上午'){
+								  $("#Tuesday_AM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Tuesday_AM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Tuesday_AM_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Tuesday_AM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='下午'){
+								  $("#Tuesday_PM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Tuesday_PM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Tuesday_PM_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Tuesday_PM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='晚上'){
+								  $("#Tuesday_Night_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Tuesday_Night_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Tuesday_Night_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Tuesday_Night_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+						  }
+						  if(temps[0]=='周三'){
+							  var times=temps[2].split('-');
+							  if(temps[1]=='上午'){
+								  $("#Wednesday_AM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Wednesday_AM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Wednesday_AM_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Wednesday_AM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='下午'){
+								  $("#Wednesday_PM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Wednesday_PM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Wednesday_PM_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Wednesday_PM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='晚上'){
+								  $("#Wednesday_Night_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Wednesday_Night_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Wednesday_Night_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Wednesday_Night_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+						  }
+						  if(temps[0]=='周四'){
+							  var times=temps[2].split('-');
+							  if(temps[1]=='上午'){
+								  $("#Thursday_AM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Thursday_AM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Thursday_AM_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Thursday_AM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='下午'){
+								  $("#Thursday_PM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Thursday_PM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Thursday_PM_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Thursday_PM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='晚上'){
+								  $("#Thursday_Night_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Thursday_Night_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Thursday_Night_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Thursday_Night_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+						  }
+						  if(temps[0]=='周五'){
+							  var times=temps[2].split('-');
+							  if(temps[1]=='上午'){
+								  $("#Friday_AM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Friday_AM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Friday_AM_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Friday_AM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='下午'){
+								  $("#Friday_PM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Friday_PM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Friday_PM_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Friday_PM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='晚上'){
+								  $("#Friday_Night_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Friday_Night_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Friday_Night_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Friday_Night_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+						  }
+						  if(temps[0]=='周六'){
+							  var times=temps[2].split('-');
+							  if(temps[1]=='上午'){
+								  $("#Saturday_AM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Saturday_AM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Saturday_AM_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Saturday_AM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='下午'){
+								  $("#Saturday_PM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Saturday_PM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Saturday_PM_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Saturday_PM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='晚上'){
+								  $("#Saturday_Night_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Saturday_Night_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Saturday_Night_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Saturday_Night_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+						  }
+						  if(temps[0]=='周日'){
+							  var times=temps[2].split('-');
+							  if(temps[1]=='上午'){
+								  $("#Sunday_AM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Sunday_AM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Sunday_AM_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Sunday_AM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='下午'){
+								  $("#Sunday_PM_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Sunday_PM_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Sunday_PM_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Sunday_PM_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+							  }
+							  if(temps[1]=='晚上'){
+								  $("#Sunday_Night_1 option").each(function(i,n){
+										if($(n).text()== times[0]){
+											$(n).attr("selected",true);
+											$("#Sunday_Night_1").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  $("#Sunday_Night_2 option").each(function(i,n){
+										if($(n).text()== times[1]){
+											$(n).attr("selected",true);
+											$("#Sunday_Night_2").prev().find('a').find('span').text($(n).text());
+											}
+										});
+								  }
+							  }
+						  }
+					  }
+				  	}
+				});
+	  }
+  if(url == '' || url == null){
+	  url = 'normal/images/nothing.jpg';
+	  }
+  imageHtml = '<a href="#">'
+  			+ '<img src="'+url+'" />'
+  			+'</a>'
+  			+'<button type="button" class="imagechange btn btn-info" onclick="changeImage()">修改图片</button>';
+	$("#image").html(imageHtml);
+	
+	
+})
+</script>
+</body>
+</html>
