@@ -111,6 +111,8 @@ $(function() {
 				$("#notice_data").html(noticHtml);
 			}
 		});
+	}else if(!currentUser){
+		
 	}else{
 		window.wxc.xcConfirm("你还没添加所属小区，请下载app，在上面添加所属小区!", window.wxc.xcConfirm.typeEnum.warning);
 	}

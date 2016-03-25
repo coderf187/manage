@@ -4,7 +4,8 @@ function quitSystem(){
 		window.location.href = "login.html";
 	});
 }
-function banner(index){
+//isNotLogin是否不用登陆
+function banner(index,isNotLogin){
 	var bannerHtml = '';
 	var defualtLoginHtml = '<a href="login.html">【登录】</a>'
 							+ '<a href="register.html">【注册】</a>';
@@ -13,7 +14,7 @@ function banner(index){
 		if(currentUser&&currentUser.userId){
 			defualtLoginHtml = '您好:&nbsp;&nbsp;<a href="userindex.html" class="blue ">'+currentUser.nickName+'</a>'
 							+	'<a href="javascript:void(0)" onclick="quitSystem()">【退出】</a>';
-		}else{
+		}else if(!isNotLogin){
 			window.wxc.xcConfirm("登陆超时，请重新登陆!", window.wxc.xcConfirm.typeEnum.warning,{onOk:function(){window.location.href = "login.html";},onCancel:function(){window.location.href = "login.html";},onClose:function(){window.location.href = "login.html";}});
 		}
 	});
